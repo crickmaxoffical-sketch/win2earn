@@ -10,54 +10,47 @@
         body { 
             background: #030712; 
             color: #ffffff; 
-            padding-bottom: 50px; 
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
-            background-attachment: fixed;
+            padding-bottom: 50px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         
-        /* Navbar */
+        /* Navbar - Optimized Blur */
         .navbar { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 16px 22px; 
-            background: rgba(11, 17, 30, 0.85); 
-            backdrop-filter: blur(12px);
+            padding: 14px 20px; 
+            background: rgba(11, 17, 30, 0.95); 
             border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
             position: sticky; 
             top: 0; 
             z-index: 100; 
+            transform: translateZ(0);
         }
         .logo { font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px; }
-        .logo span { color: #fbbf24; text-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
+        .logo span { color: #fbbf24; }
         .nav-btns { display: flex; gap: 10px; }
         .btn-login { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(255, 255, 255, 0.08); 
             border: 1px solid rgba(255, 255, 255, 0.15); 
             color: #f1f5f9; 
             padding: 8px 16px; 
             border-radius: 10px; 
             font-weight: 700; 
             cursor: pointer; 
-            transition: all 0.2s ease;
         }
-        .btn-login:hover { background: rgba(255, 255, 255, 0.1); }
         .btn-signup { 
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); 
+            background: #fbbf24; 
             border: none; 
             color: #000000; 
             padding: 8px 18px; 
             border-radius: 10px; 
             font-weight: 800; 
             cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5); }
         
-        /* Floating Winners Ticker */
+        /* Floating Winners Ticker - Hardware Accelerated */
         .ticker-container {
             background: #000000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -66,9 +59,10 @@
             overflow: hidden;
             position: relative;
             height: 38px;
+            contain: strict;
         }
         .ticker-badge {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            background: #fbbf24;
             color: #000;
             font-weight: 900;
             padding: 5px 14px 5px 12px;
@@ -77,12 +71,13 @@
             z-index: 2;
             white-space: nowrap;
             border-radius: 0 14px 14px 0;
-            box-shadow: 3px 0 12px rgba(0,0,0,0.8);
         }
         .ticker-wrapper {
             display: flex;
             white-space: nowrap;
-            animation: ticker-scroll 22s linear infinite;
+            will-change: transform;
+            animation: ticker-scroll 30s linear infinite;
+            transform: translate3d(0, 0, 0);
         }
         .ticker-item {
             font-size: 12.5px;
@@ -93,12 +88,11 @@
         .ticker-item span {
             color: #4ade80;
             font-weight: 800;
-            text-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
         }
 
         @keyframes ticker-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
 
         /* Container */
@@ -107,23 +101,21 @@
         /* HERO HEADLINE SECTION */
         .hero-headline { text-align: center; padding: 15px 5px 22px 5px; }
         .hero-title {
-            font-size: 25px;
+            font-size: 24px;
             font-weight: 900;
             letter-spacing: -0.5px;
             color: #ffffff;
             line-height: 1.25;
             margin-bottom: 8px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #ffffff 30%, #fbbf24 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
+        .hero-title span { color: #fbbf24; }
         .hero-subtitle { font-size: 14px; color: #cbd5e1; font-weight: 600; line-height: 1.4; }
         .hero-subtitle span { color: #fbbf24; font-weight: 800; }
 
         /* TAX CARD */
         .tax-card {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.85) 100%);
+            background: #0f172a;
             border: 1px solid rgba(251, 191, 36, 0.35);
             border-radius: 12px;
             padding: 10px 14px;
@@ -131,29 +123,27 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
         }
         .tax-icon { font-size: 22px; flex-shrink: 0; }
         .tax-text { font-size: 12px; color: #cbd5e1; line-height: 1.35; }
         .tax-text strong { color: #fbbf24; font-weight: 800; }
 
-        /* Cards */
+        /* Cards - Removed blur filter for speed */
         .card { 
-            background: rgba(15, 23, 42, 0.75); 
+            background: #0f172a; 
             border: 1px solid rgba(255, 255, 255, 0.08); 
             border-radius: 20px; 
             padding: 20px; 
             margin-bottom: 18px; 
             text-align: center; 
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            contain: content;
         }
-        .card.faded { opacity: 0.85; border-color: rgba(255, 255, 255, 0.05); }
+        .card.faded { opacity: 0.85; }
         .card h2 { font-size: 19px; font-weight: 800; margin-bottom: 6px; }
         .card p { color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
         
         .btn-main { 
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); 
+            background: #fbbf24; 
             color: #000; 
             border: none; 
             width: 100%; 
@@ -162,13 +152,10 @@
             font-weight: 900; 
             font-size: 15px; 
             cursor: pointer; 
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); 
-            transition: all 0.2s ease;
         }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6); }
 
         .btn-secondary { 
-            background: rgba(30, 41, 59, 0.8); 
+            background: rgba(30, 41, 59, 0.9); 
             color: #fff; 
             border: 1px solid rgba(255, 255, 255, 0.12); 
             width: 100%; 
@@ -177,30 +164,60 @@
             font-weight: 800; 
             font-size: 14px; 
             cursor: pointer; 
-            transition: background 0.2s;
         }
 
-        /* Banner Animation */
+        /* Banner Animation - GPU Optimized */
         .game-banner-anim {
-            width: 100%; height: 150px; background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
-            border-radius: 14px; position: relative; overflow: hidden; margin-bottom: 16px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 100%; 
+            height: 140px; 
+            background: #0284c7;
+            border-radius: 14px; 
+            position: relative; 
+            overflow: hidden; 
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            contain: strict;
         }
-        .cloud { position: absolute; background: rgba(255, 255, 255, 0.2); border-radius: 20px; animation: move-cloud linear infinite; }
-        .cloud1 { width: 55px; height: 16px; top: 25px; animation-duration: 9s; }
-        .cloud2 { width: 75px; height: 20px; top: 65px; animation-duration: 14s; }
-        @keyframes move-cloud { 0% { right: -120px; } 100% { right: 110%; } }
+        .cloud { 
+            position: absolute; 
+            background: rgba(255, 255, 255, 0.25); 
+            border-radius: 20px; 
+            will-change: transform;
+            animation: move-cloud linear infinite; 
+            transform: translate3d(0, 0, 0);
+        }
+        .cloud1 { width: 55px; height: 16px; top: 25px; animation-duration: 12s; }
+        .cloud2 { width: 75px; height: 20px; top: 65px; animation-duration: 18s; }
+        @keyframes move-cloud { 0% { transform: translate3d(120px, 0, 0); } 100% { transform: translate3d(-350px, 0, 0); } }
 
-        .obstacle { position: absolute; width: 20px; background: linear-gradient(90deg, #22c55e 0%, #15803d 100%); border: 1px solid #166534; border-radius: 4px; animation: move-obstacle 4s linear infinite; }
+        .obstacle { 
+            position: absolute; 
+            width: 20px; 
+            background: #15803d; 
+            border: 1px solid #166534; 
+            border-radius: 4px; 
+            will-change: transform;
+            animation: move-obstacle 5s linear infinite; 
+            transform: translate3d(0, 0, 0);
+        }
         .obstacle-top { top: 0; height: 42px; }
         .obstacle-bottom { bottom: 0; height: 46px; }
-        @keyframes move-obstacle { 0% { right: -30px; } 100% { right: 110%; } }
+        @keyframes move-obstacle { 0% { transform: translate3d(50px, 0, 0); } 100% { transform: translate3d(-380px, 0, 0); } }
 
-        .paper-plane-svg { position: absolute; left: 22%; top: 42%; width: 42px; height: 42px; animation: float-plane 2s ease-in-out infinite alternate; z-index: 5; }
-        @keyframes float-plane { 0% { transform: translateY(0px) rotate(-5deg); } 100% { transform: translateY(-10px) rotate(-15deg); } }
+        .paper-plane-svg { 
+            position: absolute; 
+            left: 22%; 
+            top: 42%; 
+            width: 42px; 
+            height: 42px; 
+            will-change: transform;
+            animation: float-plane 2.5s ease-in-out infinite alternate; 
+            z-index: 5; 
+        }
+        @keyframes float-plane { 0% { transform: translate3d(0, 0px, 0) rotate(-5deg); } 100% { transform: translate3d(0, -10px, 0) rotate(-15deg); } }
 
         /* Terms Card */
-        .terms-card { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; text-align: left; }
+        .terms-card { background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; text-align: left; }
         .terms-header { font-weight: 800; color: #fbbf24; font-size: 15px; margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; }
         .term-item { margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); padding-bottom: 10px; }
         .term-item:last-child { border: none; padding-bottom: 0; margin-bottom: 0; }
@@ -208,31 +225,28 @@
         .term-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
 
         /* Floating Telegram Support */
-        .floating-telegram { position: fixed; bottom: 24px; right: 20px; width: 52px; height: 52px; background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5); text-decoration: none; z-index: 99; }
+        .floating-telegram { position: fixed; bottom: 24px; right: 20px; width: 52px; height: 52px; background: #2AABEE; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; text-decoration: none; z-index: 99; transform: translateZ(0); }
         .floating-telegram svg { width: 26px; height: 26px; fill: #ffffff; }
 
         /* AUTH MODAL STYLING */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
-        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
+        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 400px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 24px; color: #94a3b8; cursor: pointer; }
         
-        /* Tab Switcher */
         .tab-buttons { display: flex; background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 4px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.1); }
-        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-        .tab-btn.active { background: #fbbf24; color: #000; box-shadow: 0 2px 10px rgba(251, 191, 36, 0.3); }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 700; border-radius: 8px; cursor: pointer; }
+        .tab-btn.active { background: #fbbf24; color: #000; }
 
         .form-group { margin-bottom: 12px; text-align: left; }
         .form-group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; font-weight: 600; }
         .modal input { width: 100%; padding: 11px 14px; background: #030712; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; font-size: 14px; }
         .modal input:focus { border-color: #fbbf24; }
 
-        /* Profile Picture Upload Styling */
         .avatar-upload { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 14px; }
         .avatar-preview { width: 70px; height: 70px; border-radius: 50%; border: 2px dashed #fbbf24; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #030712; position: relative; }
         .avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .avatar-preview span { font-size: 24px; color: #94a3b8; }
         .file-label { font-size: 11px; background: rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 20px; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .file-label:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -261,7 +275,7 @@
 
     <div class="container">
         <div class="hero-headline">
-            <h1 class="hero-title">INDIA'S FIRST PAPER GLIDE GAME</h1>
+            <h1 class="hero-title">INDIA'S FIRST <span>PAPER GLIDE</span> GAME</h1>
             <p class="hero-subtitle">Show your Skill, not your Luck<br>And win <span>100% Real Cash</span></p>
         </div>
 
@@ -287,7 +301,7 @@
         </div>
 
         <div class="card faded">
-            <div class="game-banner-anim" style="filter: saturate(0.6) brightness(0.85);">
+            <div class="game-banner-anim" style="filter: saturate(0.6);">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 <div class="obstacle obstacle-top"></div>
@@ -316,13 +330,12 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeAuth()">&times;</span>
             
-            <!-- Tab Switcher -->
             <div class="tab-buttons">
                 <button class="tab-btn" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
                 <button class="tab-btn" id="tabLogin" onclick="switchTab('login')">Login</button>
             </div>
 
-            <!-- LOGIN FORM (Existing Users) -->
+            <!-- LOGIN FORM -->
             <div id="loginSection" style="display: none;">
                 <div class="form-group">
                     <label>Gmail Address</label>
@@ -335,10 +348,9 @@
                 <button class="btn-main" style="margin-top: 10px;" onclick="handleLogin()">Login Now</button>
             </div>
 
-            <!-- SIGN UP FORM (New Users) -->
+            <!-- SIGN UP FORM -->
             <div id="signupSection">
                 <div id="registerInputs">
-                    <!-- Profile Picture Selection -->
                     <div class="avatar-upload">
                         <div class="avatar-preview">
                             <span id="avatarPlaceholder">👤</span>
@@ -371,7 +383,6 @@
                     <button class="btn-main" style="margin-top: 8px;" onclick="sendOTP()">Send Email OTP</button>
                 </div>
 
-                <!-- OTP Verification Area -->
                 <div id="otpSection" style="display: none;">
                     <p style="font-size: 13px; color: #38bdf8; margin-bottom: 12px; text-align: center;">Check your Gmail Inbox for the 6-Digit OTP</p>
                     <div class="form-group">
@@ -416,7 +427,6 @@
             }
         }
 
-        // Profile Picture Preview
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -431,7 +441,6 @@
             }
         }
 
-        // REAL LOGIN FUNCTION (Existing Users Only)
         async function handleLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
@@ -459,14 +468,13 @@
                     localStorage.setItem('userData', JSON.stringify(data.user));
                     window.location.reload();
                 } else {
-                    statusMsg.innerText = data.message || "Invalid Email or Password! If you don't have an account, please Sign Up first.";
+                    statusMsg.innerText = data.message || "Invalid Email or Password!";
                 }
             } catch (error) {
-                statusMsg.innerText = "Server connection error. Please try again in a few seconds.";
+                statusMsg.innerText = "Server connection error.";
             }
         }
 
-        // REAL SIGN UP - STEP 1: SEND OTP
         async function sendOTP() {
             const name = document.getElementById('signupName').value.trim();
             const phone = document.getElementById('signupPhone').value.trim();
@@ -475,11 +483,11 @@
             const statusMsg = document.getElementById('statusMsg');
 
             if (!name || !phone || !email || !password) {
-                alert("Please fill all details (Name, Mobile, Email, Password)!");
+                alert("Please fill all details!");
                 return;
             }
 
-            statusMsg.innerText = "Sending Real Gmail OTP...";
+            statusMsg.innerText = "Sending Gmail OTP...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/register`, {
@@ -496,18 +504,17 @@
                     document.getElementById('otpSection').style.display = 'block';
                 }
             } catch (error) {
-                statusMsg.innerText = "Connecting to backend... Wait 10s if server was sleeping.";
+                statusMsg.innerText = "Connecting to backend...";
             }
         }
 
-        // REAL SIGN UP - STEP 2: VERIFY OTP
         async function verifyOTP() {
             const email = document.getElementById('signupEmail').value.trim();
             const otp = document.getElementById('otpInput').value.trim();
             const statusMsg = document.getElementById('statusMsg');
 
             if (!otp) {
-                alert("Please enter the OTP sent to your Gmail!");
+                alert("Please enter OTP!");
                 return;
             }
 
@@ -526,13 +533,12 @@
                     alert("Account Created & Verified Successfully! You can now Login.");
                     switchTab('login');
                 } else {
-                    statusMsg.innerText = data.message || "Invalid OTP! Check your email and try again.";
+                    statusMsg.innerText = data.message || "Invalid OTP!";
                 }
             } catch (error) {
-                statusMsg.innerText = "Verification failed! Check server logs.";
+                statusMsg.innerText = "Verification failed!";
             }
         }
     </script>
 </body>
 </html>
-
