@@ -2,12 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB Connection (Render Dashboard se automatic uthayega)
+// Frontend index.html serve karne ke liye
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI)
@@ -26,7 +34,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-// Email Transporter (Render Dashboard se credentials lega)
+// Email Transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
