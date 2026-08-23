@@ -77,7 +77,7 @@
             display: flex;
             white-space: nowrap;
             will-change: transform;
-            animation: ticker-scroll 12s linear infinite; /* Speeded up from 30s/22s to 12s */
+            animation: ticker-scroll 12s linear infinite;
             transform: translate3d(0, 0, 0);
         }
         .ticker-item {
@@ -167,7 +167,7 @@
             cursor: pointer; 
         }
 
-        /* DYNAMIC & FAST GAME ANIMATION ARENA */
+        /* DYNAMIC GAME ANIMATION ARENA */
         .game-banner-anim {
             width: 100%; 
             height: 150px; 
@@ -180,7 +180,6 @@
             contain: strict;
         }
 
-        /* Fast Moving Clouds */
         .cloud { 
             position: absolute; 
             background: rgba(255, 255, 255, 0.3); 
@@ -192,7 +191,6 @@
         .cloud2 { width: 65px; height: 18px; top: 45px; animation-duration: 6s; }
         @keyframes move-cloud { 0% { transform: translate3d(400px, 0, 0); } 100% { transform: translate3d(-100px, 0, 0); } }
 
-        /* REALISTIC OBSTACLE PIPES (Fast Moving) */
         .pipe-pair {
             position: absolute;
             width: 28px;
@@ -213,7 +211,6 @@
             border: 2px solid #166534;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
-            box-shadow: inset -3px 0 5px rgba(0,0,0,0.3);
         }
 
         .pipe-bottom {
@@ -225,7 +222,6 @@
             border: 2px solid #166534;
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
-            box-shadow: inset -3px 0 5px rgba(0,0,0,0.3);
         }
 
         @keyframes move-pipe {
@@ -233,7 +229,6 @@
             100% { transform: translate3d(-50px, 0, 0); }
         }
 
-        /* FAST GLIDING PLANE */
         .paper-plane-svg { 
             position: absolute; 
             left: 20%; 
@@ -243,28 +238,49 @@
             will-change: transform;
             animation: float-plane 0.8s ease-in-out infinite alternate; 
             z-index: 5; 
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
         }
         @keyframes float-plane { 
             0% { transform: translate3d(0, 0px, 0) rotate(-12deg); } 
             100% { transform: translate3d(0, -18px, 0) rotate(8deg); } 
         }
 
-        /* Terms Card */
-        .terms-card { background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; text-align: left; }
-        .terms-header { font-weight: 800; color: #fbbf24; font-size: 15px; margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; }
-        .term-item { margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); padding-bottom: 10px; }
-        .term-item:last-child { border: none; padding-bottom: 0; margin-bottom: 0; }
-        .term-title { font-size: 13px; font-weight: 800; color: #f8fafc; margin-bottom: 3px; }
-        .term-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        /* CLICKABLE TERMS BOX */
+        .terms-box-btn {
+            background: #0f172a;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .terms-box-btn:hover {
+            border-color: #fbbf24;
+            background: rgba(15, 23, 42, 0.9);
+        }
+        .terms-box-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .terms-box-sub {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
 
         /* Floating Telegram Support */
         .floating-telegram { position: fixed; bottom: 24px; right: 20px; width: 52px; height: 52px; background: #2AABEE; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; text-decoration: none; z-index: 99; transform: translateZ(0); }
         .floating-telegram svg { width: 26px; height: 26px; fill: #ffffff; }
 
-        /* AUTH MODAL STYLING */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
-        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 400px; position: relative; max-height: 90vh; overflow-y: auto; }
+        /* MODAL STYLING (Shared for Auth and Terms) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
+        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 420px; position: relative; max-height: 85vh; overflow-y: auto; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 24px; color: #94a3b8; cursor: pointer; }
         
         .tab-buttons { display: flex; background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 4px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.1); }
@@ -281,6 +297,22 @@
         .avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .avatar-preview span { font-size: 24px; color: #94a3b8; }
         .file-label { font-size: 11px; background: rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 20px; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+        /* TERMS MODAL DETAILED STYLES */
+        .terms-modal-title { font-size: 18px; font-weight: 900; color: #fbbf24; margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px; }
+        .term-block { margin-bottom: 16px; text-align: left; }
+        .term-block h4 { font-size: 13px; font-weight: 800; color: #f8fafc; margin-bottom: 4px; }
+        .term-block p { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        .term-warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .term-warning-box h4 { font-size: 13px; font-weight: 800; color: #f87171; margin-bottom: 4px; }
+        .term-warning-box p { font-size: 11.5px; color: #fca5a5; line-height: 1.45; }
     </style>
 </head>
 <body>
@@ -294,7 +326,7 @@
         </div>
     </div>
 
-    <!-- Fast Floating Ticker -->
+    <!-- Ticker -->
     <div class="ticker-container">
         <div class="ticker-badge">🔥 WINNERS</div>
         <div class="ticker-wrapper">
@@ -304,7 +336,6 @@
             <div class="ticker-item">Riya K. won <span>₹1,309</span> last week &nbsp;•</div>
             <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
             <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
-            <!-- Duplicate set for seamless continuous loop -->
             <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
             <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
             <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
@@ -334,13 +365,11 @@
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 
-                <!-- Pipe Pair 1 -->
                 <div class="pipe-pair">
                     <div class="pipe-top"></div>
                     <div class="pipe-bottom"></div>
                 </div>
 
-                <!-- Pipe Pair 2 -->
                 <div class="pipe-pair delay">
                     <div class="pipe-top" style="height: 30px;"></div>
                     <div class="pipe-bottom" style="height: 65px;"></div>
@@ -373,12 +402,13 @@
             <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
         </div>
 
-        <div class="terms-card">
-            <div class="terms-header">📜 Detailed Terms & Conditions</div>
-            <div class="term-item"><div class="term-title">1. Legal Age & User Eligibility</div><div class="term-desc">Must be at least 18 years of age to register or play cash contests.</div></div>
-            <div class="term-item"><div class="term-title">2. State Restrictions</div><div class="term-desc">Restricted in Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu.</div></div>
-            <div class="term-item"><div class="term-title">3. Game of Pure Skill</div><div class="term-desc">100% Skill-based game legally protected under Indian Supreme Court guidelines.</div></div>
-            <div class="term-item"><div class="term-title">4. Tax & Fees</div><div class="term-desc">0% Govt TDS deducted. 15% Platform Convenience Fee on total payouts.</div></div>
+        <!-- CLICKABLE TERMS & CONDITIONS BOX -->
+        <div class="terms-box-btn" onclick="openTermsModal()">
+            <div>
+                <div class="terms-box-title">📜 Terms & Conditions & Responsible Gaming</div>
+                <div class="terms-box-sub">Tap to read financial risk disclaimers, rules, and privacy policy</div>
+            </div>
+            <span style="font-size: 18px; color: #fbbf24;">➔</span>
         </div>
     </div>
 
@@ -457,6 +487,42 @@
         </div>
     </div>
 
+    <!-- DETAILED TERMS & CONDITIONS MODAL -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTermsModal()">&times;</span>
+            <div class="terms-modal-title">📜 Terms of Service & Legal Disclaimer</div>
+
+            <!-- Warning Box for Financial Loss & Addiction -->
+            <div class="term-warning-box">
+                <h4>⚠️ Responsible Gaming & Financial Risk Disclaimer</h4>
+                <p><strong>This game involves an element of financial risk and may be addictive. Please play responsibly and at your own risk.</strong> Win2Earn and its operators shall not be held liable or responsible for any financial losses, damages, or distress incurred by players while participating in cash contests. Players are advised to play with financial discretion and avoid habit-forming behavior.</p>
+            </div>
+
+            <div class="term-block">
+                <h4>1. Skill-Based Gaming Legal Status</h4>
+                <p>Paper Glide is a 100% skill-based game. Outcome depends purely on player coordination, speed, and timing. It is legally protected as a Game of Skill under Indian Law and constitutional rights guaranteed under Article 19(1)(g).</p>
+            </div>
+
+            <div class="term-block">
+                <h4>2. Age & State Eligibility Restrictions</h4>
+                <p>You must be at least 18 years of age to register or participate in real cash contests. Residents of Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu are strictly prohibited from entering paid contests due to state-specific gaming regulations.</p>
+            </div>
+
+            <div class="term-block">
+                <h4>3. Platform Convenience Fee & Taxes</h4>
+                <p>0% Government TDS is deducted on winnings. A fixed 15% App Platform/Convenience Fee is applied on the gross contest payouts for maintaining infrastructure and anti-cheat servers.</p>
+            </div>
+
+            <div class="term-block">
+                <h4>4. Anti-Cheating & Fair Play Guarantee</h4>
+                <p>Use of bots, hacks, memory modifiers, multiple accounts, or third-party exploits will lead to an immediate permanent ban and confiscation of wallet balance without prior notice.</p>
+            </div>
+
+            <button class="btn-main" style="margin-top: 10px;" onclick="closeTermsModal()">I Understand & Accept Terms</button>
+        </div>
+    </div>
+
     <script>
         const BACKEND_URL = "https://win2earn.onrender.com";
         let profilePicBase64 = "";
@@ -468,6 +534,14 @@
 
         function closeAuth() {
             document.getElementById('authModal').style.display = 'none';
+        }
+
+        function openTermsModal() {
+            document.getElementById('termsModal').style.display = 'flex';
+        }
+
+        function closeTermsModal() {
+            document.getElementById('termsModal').style.display = 'none';
         }
 
         function switchTab(mode) {
@@ -602,3 +676,4 @@
     </script>
 </body>
 </html>
+
