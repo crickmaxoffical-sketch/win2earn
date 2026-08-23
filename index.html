@@ -16,11 +16,45 @@
         .btn-login { background: transparent; border: 1px solid #334155; color: #f1f5f9; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; }
         .btn-signup { background: #f59e0b; border: none; color: #000000; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
         
-        /* Winners Ticker */
-        .ticker { background: #000000; padding: 8px 15px; display: flex; align-items: center; font-size: 13px; border-bottom: 1px solid #1e293b; overflow: hidden; white-space: nowrap; }
-        .ticker-badge { background: #f59e0b; color: #000; font-weight: 800; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 12px; }
-        .ticker-text { color: #94a3b8; }
-        .ticker-text span { color: #22c55e; font-weight: 700; }
+        /* Floating Winners Ticker */
+        .ticker-container {
+            background: #000000;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            height: 38px;
+        }
+        .ticker-badge {
+            background: #f59e0b;
+            color: #000;
+            font-weight: 800;
+            padding: 4px 12px;
+            font-size: 11px;
+            z-index: 2;
+            white-space: nowrap;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.8);
+        }
+        .ticker-wrapper {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker-scroll 25s linear infinite;
+        }
+        .ticker-item {
+            font-size: 13px;
+            color: #94a3b8;
+            padding: 0 15px;
+        }
+        .ticker-item span {
+            color: #22c55e;
+            font-weight: 700;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
         /* Container */
         .container { max-width: 500px; margin: 0 auto; padding: 15px; }
@@ -67,10 +101,25 @@
         </div>
     </div>
 
-    <!-- Winners Ticker -->
-    <div class="ticker">
-        <span class="ticker-badge">• WINNERS</span>
-        <span class="ticker-text">Aman won <span>₹75,800</span> last month &nbsp;&nbsp;|&nbsp;&nbsp; Riya K. won <span>₹1,309</span> last week</span>
+    <!-- Floating Winners Ticker -->
+    <div class="ticker-container">
+        <div class="ticker-badge">• WINNERS</div>
+        <div class="ticker-wrapper">
+            <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
+            <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
+            <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
+            <div class="ticker-item">Riya K. won <span>₹1,309</span> last week &nbsp;•</div>
+            <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
+            <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
+            
+            <!-- Duplicated list for smooth infinite scroll -->
+            <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
+            <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
+            <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
+            <div class="ticker-item">Riya K. won <span>₹1,309</span> last week &nbsp;•</div>
+            <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
+            <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
+        </div>
     </div>
 
     <div class="container">
@@ -240,3 +289,4 @@
     </script>
 </body>
 </html>
+
