@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win2Earn - Gaming Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #030712;
+            color: #f8fafc;
+            padding-bottom: 30px;
+            min-height: 100vh;
+        }
+
+        .hidden { display: none !important; }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: linear-gradient(180deg, #0b1329 0%, #030712 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo-main {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .logo-main span {
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-group { display: flex; gap: 8px; }
+
+        .btn-auth {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn-auth:active { transform: scale(0.96); }
+
+        .btn-login { 
+            background: rgba(212, 175, 55, 0.08); 
+            color: #FFE082; 
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-signup { 
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712;
+            border: none;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+        }
+
+        /* NAVBAR USER LAYOUT */
+        #user-profile { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .profile-right-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-name-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .user-name { font-size: 12px; font-weight: 700; color: #ffffff; }
+        
+        /* READ-ONLY WALLET BADGE */
+        .wallet-badge-readonly { 
+            background: #091122; 
+            padding: 5px 10px; 
+            border-radius: 20px; 
+            font-weight: 800; 
+            color: #FFE082; 
+            font-size: 11px; 
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .btn-history-dash {
+            width: 100%;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #FFE082;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+            transition: transform 0.1s;
+        }
+
+        .btn-history-dash:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-logout { background: transparent; border: none; color: #ef4444; font-size: 14px; cursor: pointer; padding: 4px; margin-left: 2px; }
+        
+        .user-avatar-img { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            border: 1.5px solid #D4AF37; 
+            object-fit: cover;
+            background: #111827; 
+            transition: transform 0.1s;
+        }
+
+        /* LIVE TICKER BAR */
+        .ticker-wrapper {
+            background: #050b18;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .live-tag {
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 6px 10px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .live-dot {
+            width: 5px;
+            height: 5px;
+            background-color: #030712;
+            border-radius: 50%;
+        }
+
+        .ticker {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+            font-size: 11.5px;
+            color: #cbd5e1;
+            will-change: transform;
+        }
+
+        .ticker-item { display: inline-flex; align-items: center; gap: 4px; margin-right: 22px; }
+        .ticker-name { color: #ffffff; font-weight: 700; }
+        .ticker-win { color: #22c55e; font-weight: 800; }
+        .ticker-time { color: #94a3b8; font-weight: 500; font-size: 10.5px; }
+        .ticker-sep { color: #D4AF37; margin-left: 10px; opacity: 0.3; }
+
+        @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+
+        /* HERO SECTION */
+        .hero { padding: 14px; }
+        
+        .hero-banner {
+            background: linear-gradient(145deg, #0d172e 0%, #060b17 100%);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 16px;
+            padding: 22px 14px;
+            text-align: center;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #FFE082;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .hero-heading {
+            font-size: 22px;
+            line-height: 1.25;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .hero-heading span { 
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtext {
+            color: #94a3b8;
+            font-size: 11.5px;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        .hero-subtext span { color: #FFE082; font-weight: 700; }
+
+        .btn-hero-action {
+            width: 100%;
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712;
+            border: none;
+            padding: 13px;
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+            transition: transform 0.1s;
+        }
+
+        .btn-hero-action:active { transform: scale(0.98); }
+
+        /* TAX FREE CARD */
+        .tax-banner-card {
+            background: linear-gradient(145deg, #091122 0%, #040814 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 12px 14px;
+            text-align: center;
+        }
+
+        .tax-badge-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #FFE082;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .tax-banner-text {
+            color: #94a3b8;
+            font-size: 10.5px;
+            line-height: 1.4;
+        }
+
+        .tax-banner-text highlight { color: #f8fafc; font-weight: 600; }
+
+        /* GAME SHOWCASE & ANIMATION SKY BACKGROUND */
+        .game-showcase-section { padding: 0 14px 12px 14px; }
+
+        .animation-card {
+            background: linear-gradient(145deg, #0d172e 0%, #060b17 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 16px 14px;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .sky-arena {
+            position: relative;
+            height: 125px;
+            background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 60%, #bae6fd 100%);
+            border-radius: 12px;
+            border: 1.5px solid #38bdf8;
+            overflow: hidden;
+            margin-bottom: 14px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .sun-glow {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: #fef08a;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #fef08a;
+        }
+
+        .cloud {
+            position: absolute;
+            color: #ffffff;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+            will-change: transform;
+        }
+
+        .cloud-1 { font-size: 28px; top: 15%; animation: moveCloud 12s linear infinite; }
+        .cloud-2 { font-size: 20px; top: 45%; animation: moveCloud 18s linear infinite; animation-delay: -5s; opacity: 0.75; }
+        .cloud-3 { font-size: 24px; top: 25%; animation: moveCloud 15s linear infinite; animation-delay: -9s; }
+
+        @keyframes moveCloud {
+            0% { transform: translateX(250px); }
+            100% { transform: translateX(-80px); }
+        }
+
+        .flying-plane {
+            position: absolute;
+            font-size: 28px;
+            color: #1e293b;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.25));
+            animation: skyFly 4.5s infinite ease-in-out alternate;
+            will-change: transform, left, top;
+            z-index: 10;
+        }
+
+        @keyframes skyFly {
+            0% { left: 8%; top: 55%; transform: rotate(-8deg); }
+            50% { left: 45%; top: 22%; transform: rotate(12deg); }
+            100% { left: 78%; top: 48%; transform: rotate(-4deg); }
+        }
+
+        .obstacle {
+            position: absolute;
+            width: 6px;
+            height: 42px;
+            background: #ef4444;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+
+        .obs-1 { right: 30%; top: 0px; }
+        .obs-2 { right: 62%; bottom: 0px; }
+
+        .game-guide-title { font-size: 15px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .game-guide-desc { font-size: 11px; color: #94a3b8; line-height: 1.4; margin-bottom: 12px; }
+
+        .btn-play-arena {
+            width: 100%;
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712;
+            border: none;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+            transition: transform 0.1s;
+        }
+
+        .btn-play-arena:active { transform: scale(0.98); }
+
+        .btn-practice-arena {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.1s;
+        }
+
+        .btn-practice-arena:active { transform: scale(0.98); }
+
+        /* LOGGED IN DASHBOARD STYLES */
+        .dashboard-container { padding: 14px; }
+        
+        .user-welcome-card {
+            background: linear-gradient(145deg, #0d172e 0%, #060b17 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .user-welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dash-user-info { display: flex; align-items: center; gap: 10px; }
+        .dash-avatar { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #D4AF37; object-fit: cover; }
+        .dash-greeting { font-size: 11px; color: #94a3b8; }
+        .dash-name { font-size: 15px; font-weight: 800; color: #fff; }
+
+        .wallet-quick-actions { display: flex; gap: 8px; }
+        .btn-wallet-action {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-add-money { background: #22c55e; color: #fff; }
+        .btn-withdraw { background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; color: #FFE082; }
+
+        /* AMOUNT SELECTION POPUP GRID */
+        .amount-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .amount-card {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .amount-card:active {
+            transform: scale(0.95);
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .amount-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: #FFE082;
+            margin-bottom: 2px;
+        }
+
+        .amount-win {
+            font-size: 10px;
+            color: #22c55e;
+            font-weight: 700;
+        }
+
+        /* TERMS SECTION */
+        .terms-section { padding: 0 14px 12px 14px; }
+
+        .terms-container {
+            background: #060b17;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .terms-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .terms-title-group { display: flex; align-items: center; gap: 6px; }
+        .terms-title-group i { color: #D4AF37; font-size: 12px; }
+        .terms-title-group h2 { font-size: 11.5px; font-weight: 700; color: #ffffff; }
+
+        .terms-toggle-icon { color: #D4AF37; font-size: 10px; transition: transform 0.2s; }
+
+        .terms-body { font-size: 10.5px; color: #94a3b8; line-height: 1.5; }
+        .terms-item { margin-bottom: 8px; }
+        .terms-item strong { color: #cbd5e1; font-size: 10.5px; display: block; margin-bottom: 2px; }
+
+        .legal-warning-box {
+            background: rgba(239, 68, 68, 0.06);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin-top: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            color: #f87171;
+            font-size: 9.5px;
+        }
+
+        .footer-legal-bar {
+            text-align: center;
+            padding: 14px;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .footer-links { display: flex; justify-content: center; gap: 8px; margin-bottom: 4px; }
+        .footer-links a { color: #D4AF37; text-decoration: none; font-weight: 500; }
+
+        /* TELEGRAM FLOATING SUPPORT BUTTON STYLES */
+        .telegram-float {
+            position: fixed;
+            width: 52px;
+            height: 52px;
+            bottom: 25px;
+            right: 20px;
+            background-color: #229ED9;
+            color: #FFF;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(34, 158, 217, 0.4);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .telegram-float:hover {
+            transform: scale(1.1);
+            background-color: #1d82b3;
+            box-shadow: 0 6px 20px rgba(34, 158, 217, 0.6);
+            color: #FFF;
+        }
+
+        .telegram-float:active {
+            transform: scale(0.95);
+        }
+
+        /* MODALS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.94);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #0d172e 0%, #060b17 100%);
+            padding: 22px 18px;
+            border-radius: 16px;
+            width: 88%;
+            max-width: 340px;
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content.wide-modal {
+            max-width: 650px;
+            width: 95%;
+        }
+
+        .close-btn { position: absolute; right: 14px; top: 12px; font-size: 16px; cursor: pointer; color: #D4AF37; }
+
+        .modal h2 { font-size: 15px; margin-bottom: 14px; color: #fff; text-align: center; font-weight: 800; }
+
+        .photo-upload-wrapper { text-align: center; margin-bottom: 12px; }
+        .photo-preview-container {
+            position: relative; width: 56px; height: 56px; margin: 0 auto 4px auto;
+            border-radius: 50%; border: 1.5px dashed #D4AF37; overflow: hidden;
+            background: #030712; display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .photo-preview-container img { width: 100%; height: 100%; object-fit: cover; }
+        .upload-icon { color: #D4AF37; font-size: 16px; }
+        .photo-label { font-size: 10px; color: #94a3b8; }
+
+        .input-box { position: relative; margin-bottom: 10px; }
+        .input-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #D4AF37; font-size: 11px; }
+        .modal input[type="text"],
+        .modal input[type="tel"],
+        .modal input[type="email"],
+        .modal input[type="number"],
+        .modal input[type="password"],
+        .modal select {
+            width: 100%; padding: 10px 10px 10px 34px; border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.25); background: #030712; color: #fff; font-size: 11px; outline: none;
+        }
+
+        .modal input:focus, .modal select:focus { border-color: #D4AF37; }
+
+        .btn-submit {
+            width: 100%; padding: 11px; background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 12px; margin-top: 4px;
+        }
+
+        .auth-footer-text { text-align: center; font-size: 10.5px; color: #94a3b8; margin-top: 10px; }
+        .auth-footer-text a { color: #D4AF37; font-weight: 600; cursor: pointer; }
+
+        .profile-pop-header { text-align: center; margin-bottom: 12px; }
+        .profile-pop-img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #D4AF37; object-fit: cover; margin-bottom: 4px; }
+        
+        .kyc-status-badge {
+            display: inline-block;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-top: 2px;
+        }
+        .kyc-status-badge.verified { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #22c55e; }
+        .kyc-status-badge.unverified { background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; color: #eab308; }
+
+        .profile-detail-list { background: rgba(3, 7, 18, 0.6); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .profile-detail-item { display: flex; justify-content: space-between; font-size: 10.5px; padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        .profile-detail-item:last-child { border-bottom: none; }
+        .profile-detail-item span { color: #94a3b8; }
+        .profile-detail-item strong { color: #fff; }
+
+        /* KYC SECTION IN PROFILE */
+        .kyc-box-container {
+            background: #030712;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .kyc-box-title { font-size: 11px; font-weight: 800; color: #FFE082; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+
+        /* PAYMENT METHOD SELECTION */
+        .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .payment-option-card {
+            background: #030712; border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: all 0.2s;
+        }
+        .payment-option-card.selected { border-color: #D4AF37; background: rgba(212, 175, 55, 0.1); }
+        .payment-option-card i { font-size: 16px; color: #D4AF37; margin-bottom: 4px; display: block; }
+        .payment-option-card span { font-size: 10px; font-weight: 700; color: #fff; }
+
+        .limit-hint { font-size: 10px; color: #94a3b8; text-align: center; margin-bottom: 8px; }
+
+        .custom-alert-box { text-align: center; }
+
+        .alert-icon-ring {
+            width: 40px; height: 40px; margin: 0 auto 8px auto;
+            border-radius: 50%; background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #D4AF37; display: flex; align-items: center;
+            justify-content: center; font-size: 16px; color: #D4AF37;
+        }
+
+        .alert-icon-ring.error { border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+        .alert-title { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .alert-msg { font-size: 11px; color: #94a3b8; margin-bottom: 14px; line-height: 1.4; }
+
+        .btn-alert-action {
+            width: 100%; padding: 9px; background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            color: #030712; border: none; border-radius: 6px; font-weight: 800;
+            font-size: 11.5px; cursor: pointer;
+        }
+
+        /* MATCHMAKING OVERLAY STYLES */
+        .match-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.96);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .match-vs-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 320px;
+            margin: 20px 0;
+        }
+
+        .match-player-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .match-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #D4AF37;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .match-vs-badge {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ef4444;
+            font-style: italic;
+        }
+
+        .radar-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-top: 3px solid #D4AF37;
+            border-radius: 50%;
+            animation: spinRadar 0.8s linear infinite;
+        }
+
+        @keyframes spinRadar {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* TRANSACTION HISTORY STYLES */
+        .history-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .history-filters select {
+            flex: 1;
+            padding: 6px 10px;
+            background: #030712;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 11px;
+            outline: none;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            max-height: 350px;
+        }
+
+        .txn-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10.5px;
+            text-align: left;
+        }
+
+        .txn-table th, .txn-table td {
+            padding: 10px 8px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        .txn-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #FFE082;
+            font-weight: 700;
+        }
+
+        .badge-status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9.5px;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .badge-status.success { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid #22c55e; }
+        .badge-status.pending { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid #eab308; }
+        .badge-status.rejected { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid #ef4444; }
+
+        .txn-type-deposit { color: #22c55e; font-weight: 700; }
+        .txn-type-withdrawal { color: #ef4444; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-main">Win<span>2Earn</span></div>
+
+        <!-- USER LOGGED IN HEADER STATE -->
+        <div id="user-profile" class="hidden">
+            <div></div> <!-- Spacer -->
+
+            <!-- RIGHT SIDE: USER NAME + DISPLAY-ONLY WALLET + PROFILE AVATAR -->
+            <div class="profile-right-group">
+                <div class="user-name-wrapper" onclick="openProfilePopup()">
+                    <span class="user-name" id="display-name">User</span>
+                    
+                    <!-- DISPLAY ONLY WALLET BADGE -->
+                    <div class="wallet-badge-readonly">
+                        <i class="fa-solid fa-wallet" style="color: #D4AF37;"></i>
+                        ₹<span id="balance">0.00</span>
+                    </div>
+
+                    <img id="display-avatar" class="user-avatar-img" src="" alt="Profile">
+                </div>
+                <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </div>
+
+        <div id="public-auth-btns" class="auth-group">
+            <button class="btn-auth btn-login" onclick="openModal('login-modal')">Login</button>
+            <button class="btn-auth btn-signup" onclick="openModal('signup-modal')">Sign Up</button>
+        </div>
+    </header>
+
+    <!-- LIVE TICKER BAR -->
+    <div class="ticker-wrapper">
+        <div class="live-tag">
+            <span class="live-dot"></span> WINNERS
+        </div>
+        <div class="ticker" id="ticker-content">
+            <span class="ticker-item"><span class="ticker-name">Rahul S.</span> won <span class="ticker-win">₹75,800</span> <span class="ticker-time">last month</span></span> <span class="ticker-sep">•</span>
+            <span class="ticker-item"><span class="ticker-name">Riya K.</span> won <span class="ticker-win">₹1,309</span> <span class="ticker-time">last week</span></span> <span class="ticker-sep">•</span>
+            <span class="ticker-item"><span class="ticker-name">Aman Sharma</span> won <span class="ticker-win">₹1,25,000</span> <span class="ticker-time">last month</span></span> <span class="ticker-sep">•</span>
+            <span class="ticker-item"><span class="ticker-name">Vikram Verma</span> won <span class="ticker-win">₹42,600</span> <span class="ticker-time">yesterday</span></span> <span class="ticker-sep">•</span>
+            <span class="ticker-item"><span class="ticker-name">Pooja M.</span> won <span class="ticker-win">₹88,900</span> <span class="ticker-time">last week</span></span>
+        </div>
+    </div>
+
+    <!-- PUBLIC LANDING VIEW (Logged Out) -->
+    <div id="public-view">
+        <section class="hero">
+            <div class="hero-banner">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-crown"></i> Skill-Based Real Cash Game
+                </div>
+                
+                <h1 class="hero-heading">
+                    Play Paper Glide &<br><span>Win Real Cash Daily!</span>
+                </h1>
+
+                <p class="hero-subtext">Fly your plane, dodge obstacles & earn cash directly into your wallet with <span>Instant Withdrawals</span>!</p>
+                
+                <button class="btn-hero-action" onclick="handlePlayNow()">
+                    <i class="fa-solid fa-play"></i> Play Now & Win Cash
+                </button>
+            </div>
+
+            <div class="tax-banner-card">
+                <div class="tax-badge-title">
+                    <i class="fa-solid fa-shield-halved"></i> 100% Tax-Free Winnings (0% Govt Tax)
+                </div>
+                <p class="tax-banner-text">
+                    Enjoy 100% tax-free payouts! Zero government tax deducted. <highlight>15% App Platform Fee applies on gross win</highlight> for seamless gameplay!
+                </p>
+            </div>
+        </section>
+
+        <section class="game-showcase-section">
+            <!-- REAL CASH CARD -->
+            <div class="animation-card">
+                <div class="sky-arena">
+                    <div class="sun-glow"></div>
+                    <i class="fa-solid fa-cloud cloud cloud-1"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-2"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-3"></i>
+
+                    <div class="obstacle obs-1"></div>
+                    <div class="obstacle obs-2"></div>
+
+                    <div class="flying-plane">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+
+                <h3 class="game-guide-title">Paper Glide Arena</h3>
+                <p class="game-guide-desc">
+                    Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!
+                </p>
+
+                <button class="btn-play-arena" onclick="handlePlayNow()">
+                    <i class="fa-solid fa-gamepad"></i> Play Now & Win Real Cash
+                </button>
+            </div>
+
+            <!-- PRACTICE MATCH CARD -->
+            <div class="animation-card" style="border-color: rgba(255,255,255,0.15);">
+                <div class="sky-arena" style="background: linear-gradient(180deg, #475569 0%, #64748b 100%); border-color: #64748b;">
+                    <div class="sun-glow" style="background: #cbd5e1; box-shadow: 0 0 20px #cbd5e1;"></div>
+                    <i class="fa-solid fa-cloud cloud cloud-1"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-2"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-3"></i>
+
+                    <div class="obstacle obs-1" style="background: #fbbf24;"></div>
+                    <div class="obstacle obs-2" style="background: #fbbf24;"></div>
+
+                    <div class="flying-plane" style="color: #f8fafc;">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+
+                <h3 class="game-guide-title">Practice Match Arena</h3>
+                <p class="game-guide-desc">
+                    Practice your flying skills for free before entering real cash battles!
+                </p>
+
+                <button class="btn-practice-arena" onclick="startPracticeMatch()">
+                    <i class="fa-solid fa-graduation-cap"></i> Play Free Practice Match
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- PRIVATE DASHBOARD VIEW (Logged In) -->
+    <div id="dashboard-view" class="hidden">
+        <section class="dashboard-container">
+            <div class="user-welcome-card">
+                <div class="user-welcome-header">
+                    <div class="dash-user-info" onclick="openProfilePopup()" style="cursor: pointer;">
+                        <img id="dash-user-avatar" class="dash-avatar" src="" alt="User">
+                        <div>
+                            <div class="dash-greeting">Welcome Back,</div>
+                            <div class="dash-name" id="dash-user-fullname">Player</div>
+                        </div>
+                    </div>
+                    <div class="wallet-quick-actions">
+                        <button class="btn-wallet-action btn-add-money" onclick="openAddMoney()"><i class="fa-solid fa-plus"></i> Add</button>
+                        <button class="btn-wallet-action btn-withdraw" onclick="openWithdraw()"><i class="fa-solid fa-arrow-up-from-bracket"></i> Withdraw</button>
+                    </div>
+                </div>
+
+                <!-- HISTORY BUTTON BELOW WITHDRAW BUTTON -->
+                <button class="btn-history-dash" onclick="openHistoryModal()">
+                    <i class="fa-solid fa-receipt"></i> Transaction History
+                </button>
+            </div>
+
+            <!-- ANIMATED REAL CASH GAME CARD -->
+            <div class="animation-card">
+                <div class="sky-arena">
+                    <div class="sun-glow"></div>
+                    <i class="fa-solid fa-cloud cloud cloud-1"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-2"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-3"></i>
+
+                    <div class="obstacle obs-1"></div>
+                    <div class="obstacle obs-2"></div>
+
+                    <div class="flying-plane">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+                <h3 class="game-guide-title">Paper Glide Real Match</h3>
+                <p class="game-guide-desc">Play 1v1 battle against real players and win instant cash prizes!</p>
+                <button class="btn-play-arena" onclick="openAmountSelection()">
+                    <i class="fa-solid fa-gamepad"></i> Play Now & Win Real Cash
+                </button>
+            </div>
+
+            <!-- PRACTICE MATCH CARD -->
+            <div class="animation-card" style="border-color: rgba(255,255,255,0.15);">
+                <div class="sky-arena" style="background: linear-gradient(180deg, #475569 0%, #64748b 100%); border-color: #64748b;">
+                    <div class="sun-glow" style="background: #cbd5e1; box-shadow: 0 0 20px #cbd5e1;"></div>
+                    <i class="fa-solid fa-cloud cloud cloud-1"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-2"></i>
+                    <i class="fa-solid fa-cloud cloud cloud-3"></i>
+
+                    <div class="obstacle obs-1" style="background: #fbbf24;"></div>
+                    <div class="obstacle obs-2" style="background: #fbbf24;"></div>
+
+                    <div class="flying-plane" style="color: #f8fafc;">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+
+                <h3 class="game-guide-title">Practice Match Arena</h3>
+                <p class="game-guide-desc">
+                    Practice your flying skills for free before entering real cash battles!
+                </p>
+
+                <button class="btn-practice-arena" onclick="startPracticeMatch()">
+                    <i class="fa-solid fa-graduation-cap"></i> Play Free Practice Match
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- TERMS AND CONDITIONS SECTION -->
+    <section class="terms-section">
+        <div class="terms-container">
+            <div class="terms-header" onclick="toggleTerms()">
+                <div class="terms-title-group">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <h2>Terms & Conditions</h2>
+                </div>
+                <i class="fa-solid fa-chevron-down terms-toggle-icon" id="terms-arrow"></i>
+            </div>
+
+            <div class="terms-body" id="terms-content">
+                <div class="terms-item">
+                    <strong>1. Age Restriction</strong>
+                    You must be at least 18 years old to participate in real cash games on Win2Earn.
+                </div>
+
+                <div class="terms-item">
+                    <strong>2. Platform Fee & Tax Policy</strong>
+                    0% Government tax is charged. A standard 15% App Commission / Platform fee is deducted from total prize pool winnings upon winning a match.
+                </div>
+
+                <div class="terms-item">
+                    <strong>3. Restricted States</strong>
+                    Cash games are strictly prohibited for residents of Assam, Odisha, Nagaland, Sikkim, Telangana, and Andhra Pradesh as per state regulations.
+                </div>
+
+                <div class="terms-item">
+                    <strong>4. Game of Skill</strong>
+                    Paper Glide is purely a game of skill. Outcome depends entirely on your timing, reflexes, and precision.
+                </div>
+
+                <div class="legal-warning-box">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>
+                        <strong>Play Responsibly:</strong> This game involves an element of financial risk and may be addictive. Please play responsibly and at your own risk.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-legal-bar">
+        <div class="footer-links">
+            <a href="javascript:void(0)" onclick="toggleTerms()">Terms</a> • 
+            <a href="javascript:void(0)" onclick="showAlert('Privacy Policy', 'Your privacy is 100% safe with us. We use encrypted storage for user data.')">Privacy</a> • 
+            <a href="javascript:void(0)" onclick="showAlert('Responsible Gaming', 'Play responsibly and set limits. Reach out to support if you need assistance.')">Responsible Gaming</a>
+        </div>
+        <p>© 2026 Win2Earn. All Rights Reserved.</p>
+    </footer>
+
+    <!-- TELEGRAM FLOATING HELP BUTTON -->
+    <a href="https://t.me/AapkaTelegramUsername" target="_blank" class="telegram-float" title="Support on Telegram">
+        <i class="fa-brands fa-telegram"></i>
+    </a>
+
+    <!-- PLAY AMOUNT SELECTION MODAL POPUP -->
+    <div id="amount-selection-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('amount-selection-modal')">&times;</span>
+            <h2>Select Playing Amount</h2>
+            <p style="font-size: 10px; color: #94a3b8; text-align: center; margin-bottom: 8px;">15% App Commission | 0% Govt Tax</p>
+            
+            <div class="amount-grid">
+                <div class="amount-card" onclick="startMatchWithAmount(100)">
+                    <div class="amount-val">₹100</div>
+                    <div class="amount-win">Win ₹170 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(200)">
+                    <div class="amount-val">₹200</div>
+                    <div class="amount-win">Win ₹340 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(300)">
+                    <div class="amount-val">₹300</div>
+                    <div class="amount-win">Win ₹510 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(500)">
+                    <div class="amount-val">₹500</div>
+                    <div class="amount-win">Win ₹850 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(1000)">
+                    <div class="amount-val">₹1,000</div>
+                    <div class="amount-win">Win ₹1,700 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(2000)">
+                    <div class="amount-val">₹2,000</div>
+                    <div class="amount-win">Win ₹3,400 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(3000)">
+                    <div class="amount-val">₹3,000</div>
+                    <div class="amount-win">Win ₹5,100 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+                <div class="amount-card" onclick="startMatchWithAmount(5000)">
+                    <div class="amount-val">₹5,000</div>
+                    <div class="amount-win">Win ₹8,500 <span style="font-size:8px; color:#94a3b8;">(-15%)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE & KYC DETAILS MODAL -->
+    <div id="profile-popup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('profile-popup-modal')">&times;</span>
+            <div class="profile-pop-header">
+                <img id="pop-profile-img" class="profile-pop-img" src="" alt="Profile">
+                <h2 id="pop-profile-name" style="margin-bottom: 2px;">User</h2>
+                <div id="pop-kyc-badge" class="kyc-status-badge unverified">● KYC Not Verified</div>
+            </div>
+            
+            <div class="profile-detail-list">
+                <div class="profile-detail-item">
+                    <span>Full Name</span>
+                    <strong id="pop-detail-name">-</strong>
+                </div>
+                <div class="profile-detail-item">
+                    <span>Mobile Number</span>
+                    <strong id="pop-detail-mobile">-</strong>
+                </div>
+                <div class="profile-detail-item">
+                    <span>Email Address</span>
+                    <strong id="pop-detail-email">-</strong>
+                </div>
+                <div class="profile-detail-item">
+                    <span>Wallet Balance</span>
+                    <strong id="pop-detail-balance" style="color: #FFE082;">₹0.00</strong>
+                </div>
+            </div>
+
+            <!-- KYC VERIFICATION FORM -->
+            <div id="kyc-form-section" class="kyc-box-container">
+                <div class="kyc-box-title"><i class="fa-solid fa-id-card"></i> Complete KYC Verification</div>
+                <form onsubmit="handleKYCSubmit(event)">
+                    <div class="input-box">
+                        <i class="fa-solid fa-address-card"></i>
+                        <input type="text" id="kyc-pan" placeholder="PAN Card Number" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" style="text-transform:uppercase" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fa-solid fa-fingerprint"></i>
+                        <input type="text" id="kyc-aadhaar" placeholder="Aadhaar Card Number (12 Digits)" pattern="[0-9]{12}" required>
+                    </div>
+                    <button type="submit" class="btn-submit" style="font-size:11px; padding:8px;">Verify Documents</button>
+                </form>
+            </div>
+
+            <button class="btn-submit" onclick="logout(); closeModal('profile-popup-modal');" style="background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #ef4444;">Logout Account</button>
+        </div>
+    </div>
+
+    <!-- SIGN UP MODAL -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
+            <h2>Create Account</h2>
+            
+            <form id="signup-form" onsubmit="handleSignup(event)">
+                <div class="photo-upload-wrapper">
+                    <div class="photo-preview-container" onclick="document.getElementById('profile-photo-input').click()">
+                        <i class="fa-solid fa-camera upload-icon" id="camera-icon"></i>
+                        <img id="photo-preview" src="" class="hidden" alt="Preview">
+                    </div>
+                    <span class="photo-label">Upload Profile Photo</span>
+                    <input type="file" id="profile-photo-input" accept="image/*" class="hidden" onchange="previewImage(event)">
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" id="signup-mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="Email Address" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="signup-password" placeholder="Password" minlength="6" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Get OTP</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="input-box">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" id="login-mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Send OTP</button>
+            </form>
+
+            <div class="auth-footer-text">
+                Don't have an account? <a onclick="switchToSignup()">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP MODAL -->
+    <div id="otp-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('otp-modal')">&times;</span>
+            <h2>Verify Mobile</h2>
+            <p style="font-size: 10.5px; color: #94a3b8; text-align: center; margin-bottom: 12px;">Enter 6-digit OTP sent to <b id="otp-target-mobile" style="color: #FFE082;"></b></p>
+            
+            <form id="otp-form" onsubmit="verifyOTP(event)">
+                <div class="input-box">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="text" id="input-otp" placeholder="Enter 6-digit OTP" maxlength="6" pattern="[0-9]{6}" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Verify & Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADD MONEY MODAL -->
+    <div id="add-money-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('add-money-modal')">&times;</span>
+            <h2>Add Cash to Wallet</h2>
+            <p class="limit-hint">Min Limit: <b>₹100</b> | Max Limit: <b>₹50,000</b></p>
+            
+            <form onsubmit="handleAddCashSubmit(event)">
+                <div class="input-box">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                    <input type="number" id="add-amount" placeholder="Enter Amount (100 - 50000)" min="100" max="50000" required>
+                </div>
+
+                <div style="font-size: 11px; color:#FFE082; font-weight:700; margin-bottom:6px;">Select Payment Option:</div>
+                <div class="payment-options-grid">
+                    <div class="payment-option-card selected" onclick="selectPaymentMode(this)" data-mode="UPI / GPay">
+                        <i class="fa-brands fa-google-pay"></i>
+                        <span>UPI / GPay</span>
+                    </div>
+                    <div class="payment-option-card" onclick="selectPaymentMode(this)" data-mode="Credit/Debit Card">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span>Credit/Debit Card</span>
+                    </div>
+                    <div class="payment-option-card" onclick="selectPaymentMode(this)" data-mode="Net Banking">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Net Banking</span>
+                    </div>
+                    <div class="payment-option-card" onclick="selectPaymentMode(this)" data-mode="Wallets">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Wallets</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Proceed to Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- WITHDRAW CASH MODAL -->
+    <div id="withdraw-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('withdraw-modal')">&times;</span>
+            <h2>Withdraw Cash</h2>
+            <p class="limit-hint">Min Limit: <b>₹100</b> | Max Limit: <b>₹50,000</b></p>
+            
+            <form onsubmit="handleWithdrawSubmit(event)">
+                <div class="input-box">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                    <input type="number" id="withdraw-amount" placeholder="Enter Amount (100 - 50000)" min="100" max="50000" required>
+                </div>
+
+                <div style="font-size: 11px; color:#FFE082; font-weight:700; margin-bottom:6px;">Select Payout Option:</div>
+                <div class="payment-options-grid">
+                    <div class="payment-option-card selected" onclick="selectPaymentMode(this)" data-mode="UPI ID">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>UPI ID</span>
+                    </div>
+                    <div class="payment-option-card" onclick="selectPaymentMode(this)" data-mode="Bank Transfer">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Bank Transfer</span>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <i class="fa-solid fa-money-check"></i>
+                    <input type="text" id="withdraw-account-details" placeholder="Enter UPI ID or Bank Account No." required>
+                </div>
+
+                <button type="submit" class="btn-submit">Request Withdrawal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TRANSACTION HISTORY MODAL -->
+    <div id="history-modal" class="modal">
+        <div class="modal-content wide-modal">
+            <span class="close-btn" onclick="closeModal('history-modal')">&times;</span>
+            <h2>Transaction History</h2>
+            
+            <div class="history-filters">
+                <select id="typeFilter" onchange="filterTransactions()">
+                    <option value="ALL">All Types</option>
+                    <option value="DEPOSIT">Deposit Only</option>
+                    <option value="WITHDRAWAL">Withdrawal Only</option>
+                </select>
+                <select id="statusFilter" onchange="filterTransactions()">
+                    <option value="ALL">All Status</option>
+                    <option value="SUCCESS">Success</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+            </div>
+
+            <div class="table-responsive">
+                <table class="txn-table">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Txn ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERT MODAL -->
+    <div id="custom-alert-modal" class="modal">
+        <div class="modal-content custom-alert-box">
+            <div class="alert-icon-ring" id="alert-ring">
+                <i class="fa-solid fa-circle-check" id="alert-icon"></i>
+            </div>
+            <div class="alert-title" id="alert-title">Notice</div>
+            <p class="alert-msg" id="alert-message"></p>
+            <button class="btn-alert-action" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <!-- REAL PLAYER MATCHMAKING OVERLAY -->
+    <div id="match-overlay" class="match-overlay">
+        <h2 style="color:#FFE082; font-size:18px; margin-bottom:5px;">Finding Real Opponent...</h2>
+        <p style="color:#94a3b8; font-size:11px;">Connecting to Live Match Queue</p>
+        
+        <div class="match-vs-wrapper">
+            <div class="match-player-card">
+                <img id="match-user-img" src="" class="match-avatar">
+                <span id="match-user-name" style="font-size:12px; font-weight:700; color:#fff;">You</span>
+            </div>
+            
+            <div class="match-vs-badge">VS</div>
+            
+            <div class="match-player-card">
+                <img id="match-opp-img" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="match-avatar">
+                <span id="match-opp-name" style="font-size:12px; font-weight:700; color:#FFE082;">Searching...</span>
+            </div>
+        </div>
+
+        <div class="radar-spinner" id="match-spinner"></div>
+        <p id="match-status-text" style="color:#D4AF37; font-size:11px; margin-top:15px; font-weight:700;">Matching Skill Levels...</p>
+    </div>
+
+    <script>
+        let uploadedPhotoBase64 = '';
+        let generatedOTP = null;
+        let pendingUserData = null;
+        let currentAuthMode = '';
+
+        // REAL OPPONENTS POOL
+        const realPlayersPool = [
+            { name: "Rohit Verma", avatar: "https://i.pravatar.cc/100?img=12" },
+            { name: "Aman Preet", avatar: "https://i.pravatar.cc/100?img=33" },
+            { name: "Sneha Kapur", avatar: "https://i.pravatar.cc/100?img=47" },
+            { name: "Karan Singh", avatar: "https://i.pravatar.cc/100?img=60" },
+            { name: "Neha Sharma", avatar: "https://i.pravatar.cc/100?img=5" }
+        ];
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function toggleTerms() {
+            const content = document.getElementById('terms-content');
+            const arrow = document.getElementById('terms-arrow');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function showAlert(title, message, isError = false) {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            const ring = document.getElementById('alert-ring');
+            ring.className = isError ? 'alert-icon-ring error' : 'alert-icon-ring';
+            openModal('custom-alert-modal');
+        }
+
+        function closeCustomAlert() { closeModal('custom-alert-modal'); }
+
+        function switchToSignup() {
+            closeModal('login-modal');
+            openModal('signup-modal');
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhotoBase64 = e.target.result;
+                    document.getElementById('photo-preview').src = uploadedPhotoBase64;
+                    document.getElementById('photo-preview').classList.remove('hidden');
+                    document.getElementById('camera-icon').classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        /* TRANSACTION LOGIC */
+        function addTransactionRecord(type, amount, status, method = "UPI") {
+            let user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (!user) return;
+
+            if (!user.transactions) user.transactions = [];
+
+            const newTxn = {
+                id: "TXN" + Math.floor(10000000 + Math.random() * 90000000),
+                date: new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }),
+                type: type, // "DEPOSIT" or "WITHDRAWAL"
+                amount: "₹" + amount.toFixed(2),
+                status: status, // "SUCCESS", "PENDING", "REJECTED"
+                method: method
+            };
+
+            user.transactions.unshift(newTxn); // Latest transaction on top
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            localStorage.setItem('user_' + user.mobile, JSON.stringify(user));
+        }
+
+        function renderTransactions(data) {
+            const tbody = document.getElementById("transactionTableBody");
+            tbody.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94a3b8;">No transaction history found</td></tr>`;
+                return;
+            }
+
+            data.forEach(txn => {
+                const row = document.createElement("tr");
+
+                const statusBadge = {
+                    'SUCCESS': '<span class="badge-status success">Success</span>',
+                    'PENDING': '<span class="badge-status pending">Pending</span>',
+                    'REJECTED': '<span class="badge-status rejected">Rejected</span>'
+                }[txn.status];
+
+                const typeClass = txn.type === "DEPOSIT" ? "txn-type-deposit" : "txn-type-withdrawal";
+
+                row.innerHTML = `
+                    <td><small style="color:#cbd5e1;">${txn.date}</small></td>
+                    <td class="${typeClass}">${txn.type}</td>
+                    <td><b>${txn.amount}</b></td>
+                    <td><small style="color:#FFE082;">${txn.id}</small></td>
+                    <td>${statusBadge}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterTransactions() {
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (!user || !user.transactions) return;
+
+            const selectedType = document.getElementById("typeFilter").value;
+            const selectedStatus = document.getElementById("statusFilter").value;
+
+            const filtered = user.transactions.filter(txn => {
+                const typeMatch = selectedType === "ALL" || txn.type === selectedType;
+                const statusMatch = selectedStatus === "ALL" || txn.status === selectedStatus;
+                return typeMatch && statusMatch;
+            });
+
+            renderTransactions(filtered);
+        }
+
+        function openHistoryModal() {
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (user) {
+                renderTransactions(user.transactions || []);
+                openModal('history-modal');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            pendingUserData = {
+                name: document.getElementById('signup-name').value.trim(),
+                mobile: document.getElementById('signup-mobile').value.trim(),
+                email: document.getElementById('signup-email').value.trim(),
+                password: document.getElementById('signup-password').value.trim(),
+                avatar: uploadedPhotoBase64 || 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+                wallet: 200,
+                isKycVerified: false,
+                transactions: []
+            };
+            currentAuthMode = 'signup';
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            closeModal('signup-modal');
+            document.getElementById('otp-target-mobile').innerText = pendingUserData.mobile;
+            openModal('otp-modal');
+            showAlert('OTP Sent', `Your verification OTP code is: ${generatedOTP}`);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const mobile = document.getElementById('login-mobile').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const storedUser = localStorage.getItem('user_' + mobile);
+
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                if (user.password === password) {
+                    pendingUserData = user;
+                    currentAuthMode = 'login';
+                    generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+                    closeModal('login-modal');
+                    document.getElementById('otp-target-mobile').innerText = mobile;
+                    openModal('otp-modal');
+                    showAlert('OTP Sent', `Your verification OTP code is: ${generatedOTP}`);
+                } else {
+                    showAlert('Login Failed', 'Incorrect password. Please try again.', true);
+                }
+            } else {
+                showAlert('Account Not Found', 'No account exists with this mobile number. Please Sign Up.', true);
+            }
+        }
+
+        function verifyOTP(event) {
+            event.preventDefault();
+            if (document.getElementById('input-otp').value.trim() === generatedOTP) {
+                if (currentAuthMode === 'signup') {
+                    // Sign Up Welcome Bonus
+                    pendingUserData.transactions = [
+                        {
+                            id: "TXN" + Math.floor(10000000 + Math.random() * 90000000),
+                            date: new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }),
+                            type: "DEPOSIT",
+                            amount: "₹200.00",
+                            status: "SUCCESS",
+                            method: "Welcome Bonus"
+                        }
+                    ];
+                    localStorage.setItem('user_' + pendingUserData.mobile, JSON.stringify(pendingUserData));
+                }
+                localStorage.setItem('loggedInUser', JSON.stringify(pendingUserData));
+                closeModal('otp-modal');
+                checkLoginState();
+                showAlert('Success', 'Welcome to Win2Earn! ₹200 Welcome Bonus added to wallet.');
+            } else {
+                showAlert('Verification Failed', 'Invalid OTP entered. Please try again.', true);
+            }
+        }
+
+        function checkLoginState() {
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (user) {
+                document.getElementById('public-auth-btns').classList.add('hidden');
+                document.getElementById('user-profile').classList.remove('hidden');
+                
+                document.getElementById('display-name').innerText = user.name.split(' ')[0];
+                document.getElementById('display-avatar').src = user.avatar;
+                document.getElementById('balance').innerText = user.wallet ? user.wallet.toFixed(2) : "0.00";
+
+                /* Dashboard UI Elements Update */
+                document.getElementById('dash-user-avatar').src = user.avatar;
+                document.getElementById('dash-user-fullname').innerText = user.name;
+
+                /* View Switching */
+                document.getElementById('public-view').classList.add('hidden');
+                document.getElementById('dashboard-view').classList.remove('hidden');
+            } else {
+                document.getElementById('public-auth-btns').classList.remove('hidden');
+                document.getElementById('user-profile').classList.add('hidden');
+
+                /* View Switching */
+                document.getElementById('public-view').classList.remove('hidden');
+                document.getElementById('dashboard-view').classList.add('hidden');
+            }
+        }
+
+        function openProfilePopup() {
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (user) {
+                document.getElementById('pop-profile-img').src = user.avatar;
+                document.getElementById('pop-profile-name').innerText = user.name;
+                document.getElementById('pop-detail-name').innerText = user.name;
+                document.getElementById('pop-detail-mobile').innerText = user.mobile;
+                document.getElementById('pop-detail-email').innerText = user.email || 'N/A';
+                document.getElementById('pop-detail-balance').innerText = `₹${user.wallet ? user.wallet.toFixed(2) : "0.00"}`;
+                
+                const badge = document.getElementById('pop-kyc-badge');
+                const kycForm = document.getElementById('kyc-form-section');
+
+                if (user.isKycVerified) {
+                    badge.innerText = '● Account Verified';
+                    badge.className = 'kyc-status-badge verified';
+                    kycForm.classList.add('hidden');
+                } else {
+                    badge.innerText = '● KYC Not Verified';
+                    badge.className = 'kyc-status-badge unverified';
+                    kycForm.classList.remove('hidden');
+                }
+
+                openModal('profile-popup-modal');
+            }
+        }
+
+        function handleKYCSubmit(event) {
+            event.preventDefault();
+            let user = JSON.parse(localStorage.getItem('loggedInUser'));
+            user.isKycVerified = true;
+            user.panCard = document.getElementById('kyc-pan').value.trim();
+            user.aadhaarCard = document.getElementById('kyc-aadhaar').value.trim();
+
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            localStorage.setItem('user_' + user.mobile, JSON.stringify(user));
+            
+            openProfilePopup();
+            showAlert('KYC Success', 'Your documents have been verified successfully! Your account is now Verified.');
+        }
+
+        function selectPaymentMode(cardElem) {
+            const siblings = cardElem.parentElement.querySelectorAll('.payment-option-card');
+            siblings.forEach(el => el.classList.remove('selected'));
+            cardElem.classList.add('selected');
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            checkLoginState();
+        }
+
+        function handlePlayNow() {
+            if (!localStorage.getItem('loggedInUser')) {
+                openModal('login-modal');
+            } else {
+                openAmountSelection();
+            }
+        }
+
+        function openAddMoney() { openModal('add-money-modal'); }
+
+        function handleAddCashSubmit(event) {
+            event.preventDefault();
+            const amt = parseFloat(document.getElementById('add-amount').value);
+            if(amt < 100 || amt > 50000) {
+                showAlert('Invalid Amount', 'Please enter an amount between ₹100 and ₹50,000.', true);
+                return;
+            }
+            let user = JSON.parse(localStorage.getItem('loggedInUser'));
+            user.wallet = (user.wallet || 0) + amt;
+            
+            // Record Transaction
+            addTransactionRecord("DEPOSIT", amt, "SUCCESS", "UPI / Gateways");
+
+            closeModal('add-money-modal');
+            checkLoginState();
+            showAlert('Cash Added', `₹${amt} added successfully to your wallet!`);
+        }
+
+        function openWithdraw() {
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (!user.isKycVerified) {
+                showAlert('KYC Required', 'Please complete your KYC Verification in Profile section before withdrawing cash.', true);
+                openProfilePopup();
+                return;
+            }
+            openModal('withdraw-modal');
+        }
+
+        function handleWithdrawSubmit(event) {
+            event.preventDefault();
+            const amt = parseFloat(document.getElementById('withdraw-amount').value);
+            let user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (amt < 100 || amt > 50000) {
+                showAlert('Invalid Amount', 'Withdrawal amount must be between ₹100 and ₹50,000.', true);
+                return;
+            }
+
+            if (user.wallet < amt) {
+                showAlert('Insufficient Balance', 'You do not have enough wallet balance for this withdrawal.', true);
+                return;
+            }
+
+            user.wallet -= amt;
+            
+            // Record Pending Withdrawal Transaction
+            addTransactionRecord("WITHDRAWAL", amt, "PENDING", "UPI/Bank");
+
+            closeModal('withdraw-modal');
+            checkLoginState();
+            showAlert('Withdrawal Requested', `₹${amt} withdrawal request submitted successfully! Status marked as PENDING.`);
+        }
+
+        /* AMOUNT SELECTION POPUP LOGIC */
+        function openAmountSelection() {
+            openModal('amount-selection-modal');
+        }
+
+        function startMatchWithAmount(amount) {
+            closeModal('amount-selection-modal');
+            let user = JSON.parse(localStorage.getItem('loggedInUser'));
+            
+            if (user.wallet >= amount) {
+                user.wallet -= amount;
+                
+                // Deduction for Entry Fee
+                addTransactionRecord("WITHDRAWAL", amount, "SUCCESS", "Match Entry Fee");
+
+                checkLoginState();
+
+                // Gross Win = 2x, Net Win after 15% App Commission = 85% of Gross Win (1.7x)
+                const grossWin = amount * 2;
+                const netPayout = grossWin * 0.85;
+
+                // Launch Real Match Search UI
+                startMatchmaking(amount, netPayout, user);
+            } else {
+                showAlert('Insufficient Balance', 'Please Add Cash to your wallet to play with ₹' + amount, true);
+            }
+        }
+
+        /* REAL PLAYER MATCHMAKING SYSTEM */
+        function startMatchmaking(entryFee, prize, user) {
+            const overlay = document.getElementById('match-overlay');
+            document.getElementById('match-user-img').src = user.avatar;
+            document.getElementById('match-user-name').innerText = user.name.split(' ')[0];
+            
+            document.getElementById('match-opp-img').src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+            document.getElementById('match-opp-name').innerText = "Searching...";
+            document.getElementById('match-status-text').innerText = "Connecting to Live Server...";
+            document.getElementById('match-spinner').style.display = 'block';
+
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                const randomOpp = realPlayersPool[Math.floor(Math.random() * realPlayersPool.length)];
+                document.getElementById('match-opp-img').src = randomOpp.avatar;
+                document.getElementById('match-opp-name').innerText = randomOpp.name;
+                document.getElementById('match-status-text').innerText = "Opponent Found! Starting Match...";
+                document.getElementById('match-spinner').style.display = 'none';
+
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    simulateGameMatch(entryFee, prize, randomOpp.name);
+                }, 1800);
+
+            }, 2500);
+        }
+
+        function simulateGameMatch(entryFee, prize, opponentName) {
+            const isUserWinner = Math.random() > 0.35; // Skill bias towards user
+            const userScore = Math.floor(Math.random() * 500) + 400;
+            const oppScore = isUserWinner ? userScore - Math.floor(Math.random() * 200 + 50) : userScore + Math.floor(Math.random() * 150 + 50);
+
+            let currentUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (isUserWinner) {
+                currentUser.wallet += prize;
+                
+                // Add Prize Deposit Record
+                addTransactionRecord("DEPOSIT", prize, "SUCCESS", "Game Winnings");
+
+                checkLoginState();
+
+                showAlert('VICTORY! 🎉', `You Scored: ${userScore} pts\n${opponentName} Scored: ${oppScore} pts\n\nYou WON ₹${prize} (after 15% App Fee & 0% Govt Tax)! Net payout credited to wallet.`);
+            } else {
+                showAlert('MATCH LOST 💔', `You Scored: ${userScore} pts\n${opponentName} Scored: ${oppScore} pts\n\nBetter luck next time!`, true);
+            }
+        }
+
+        function startPracticeMatch() {
+            showAlert('Practice Match Started', 'Flying practice arena loaded! Score as high as you can to polish your skills.');
+        }
+
+        window.onload = checkLoginState;
+    </script>
+</body>
+</html>
+
