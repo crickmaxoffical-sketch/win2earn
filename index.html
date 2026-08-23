@@ -196,7 +196,7 @@
         }
         .btn-secondary:hover { background: rgba(51, 65, 85, 0.9); }
 
-        /* OPTIMIZED & SMOOTH GAME BANNER */
+        /* OPTIMIZED GAME BANNER */
         .game-banner-anim {
             width: 100%;
             height: 150px;
@@ -210,13 +210,12 @@
             will-change: transform;
         }
 
-        /* Optimized Smooth Clouds */
         .cloud {
             position: absolute;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             animation: move-cloud linear infinite;
-            transform: translateZ(0); /* Hardware Acceleration */
+            transform: translateZ(0);
         }
         .cloud1 { width: 55px; height: 16px; top: 25px; animation-duration: 9s; }
         .cloud2 { width: 75px; height: 20px; top: 65px; animation-duration: 14s; }
@@ -226,7 +225,6 @@
             100% { right: 110%; }
         }
 
-        /* Obstacles */
         .obstacle {
             position: absolute;
             width: 20px;
@@ -244,7 +242,6 @@
             100% { right: 110%; }
         }
 
-        /* REAL PAPER PLANE VECTOR ICON */
         .paper-plane-svg {
             position: absolute;
             left: 22%;
@@ -327,7 +324,7 @@
         </div>
     </div>
 
-    <!-- Floating Winners Ticker with Curved Badge -->
+    <!-- Floating Winners Ticker -->
     <div class="ticker-container">
         <div class="ticker-badge">🔥 WINNERS</div>
         <div class="ticker-wrapper">
@@ -364,14 +361,13 @@
             </div>
         </div>
 
-        <!-- Paper Glide Arena Card with Smooth Animation & Real Paper Plane SVG -->
+        <!-- Paper Glide Arena Card -->
         <div class="card">
             <div class="game-banner-anim">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 <div class="obstacle obstacle-top"></div>
                 <div class="obstacle obstacle-bottom"></div>
-                <!-- Real Paper Aeroplane SVG Graphic -->
                 <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/>
                 </svg>
@@ -381,14 +377,13 @@
             <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
         </div>
 
-        <!-- Practice Arena Card (Faded Animation) -->
+        <!-- Practice Arena Card -->
         <div class="card faded">
             <div class="game-banner-anim" style="filter: saturate(0.6) brightness(0.85);">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 <div class="obstacle obstacle-top"></div>
                 <div class="obstacle obstacle-bottom"></div>
-                <!-- Real Paper Aeroplane SVG Graphic -->
                 <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/>
                 </svg>
@@ -398,7 +393,7 @@
             <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
         </div>
 
-        <!-- Fully Detailed Terms & Conditions Section -->
+        <!-- Terms & Conditions -->
         <div class="terms-card">
             <div class="terms-header">
                 <span>📜 Detailed Terms & Conditions</span>
@@ -437,14 +432,14 @@
 
     </div>
 
-    <!-- Floating Telegram Button with Official SVG Icon -->
-    <a href="#" class="floating-telegram" title="Telegram Support">
+    <!-- Floating Telegram Support -->
+    <a href="https://t.me/your_telegram_channel" target="_blank" class="floating-telegram" title="Telegram Support">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/>
         </svg>
     </a>
 
-    <!-- Auth Modal (Login / Sign Up) -->
+    <!-- Auth Modal -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeAuth()">&times;</span>
@@ -454,7 +449,7 @@
                 <input type="email" id="email" placeholder="Gmail Address">
                 <input type="tel" id="phone" placeholder="Phone Number">
                 <input type="password" id="password" placeholder="Password">
-                <button class="btn-main" style="margin-top: 10px;" onclick="sendOTP()">Send Gmail OTP</button>
+                <button class="btn-main" style="margin-top: 10px;" onclick="sendOTP()">Send Real Gmail OTP</button>
             </div>
 
             <div id="otpForm" style="display: none;">
@@ -472,7 +467,10 @@
 
         function openAuth(type) {
             document.getElementById('authModal').style.display = 'flex';
-            document.getElementById('modalTitle'].innerText = type === 'login' ? 'Login to Win2Earn' : 'Create Account';
+            document.getElementById('modalTitle').innerText = type === 'login' ? 'Login to Win2Earn' : 'Create Account';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('otpForm').style.display = 'none';
+            document.getElementById('statusMsg').innerText = '';
         }
 
         function closeAuth() {
@@ -490,7 +488,7 @@
                 return;
             }
 
-            statusMsg.innerText = "Sending OTP to your Gmail...";
+            statusMsg.innerText = "Connecting to Real OTP Server...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/register`, {
@@ -507,7 +505,7 @@
                     document.getElementById('otpForm').style.display = 'block';
                 }
             } catch (error) {
-                statusMsg.innerText = "Server error. Please try again!";
+                statusMsg.innerText = "Backend Server is connecting... Please wait 10 seconds and try again.";
             }
         }
 
@@ -521,7 +519,7 @@
                 return;
             }
 
-            statusMsg.innerText = "Verifying...";
+            statusMsg.innerText = "Verifying Real OTP...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
@@ -533,16 +531,15 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert("Account Created Successfully!");
+                    alert("Account Created & Verified Successfully!");
                     window.location.reload();
                 } else {
                     statusMsg.innerText = data.message || "Invalid OTP";
                 }
             } catch (error) {
-                statusMsg.innerText = "Verification failed!";
+                statusMsg.innerText = "Verification failed! Check server logs.";
             }
         }
     </script>
 </body>
 </html>
-
