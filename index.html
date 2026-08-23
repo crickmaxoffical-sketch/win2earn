@@ -105,10 +105,7 @@
         .container { max-width: 480px; margin: 0 auto; padding: 20px 16px; }
 
         /* HERO HEADLINE SECTION */
-        .hero-headline {
-            text-align: center;
-            padding: 15px 5px 22px 5px;
-        }
+        .hero-headline { text-align: center; padding: 15px 5px 22px 5px; }
         .hero-title {
             font-size: 25px;
             font-weight: 900;
@@ -121,18 +118,10 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero-subtitle {
-            font-size: 14px;
-            color: #cbd5e1;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-        .hero-subtitle span {
-            color: #fbbf24;
-            font-weight: 800;
-        }
+        .hero-subtitle { font-size: 14px; color: #cbd5e1; font-weight: 600; line-height: 1.4; }
+        .hero-subtitle span { color: #fbbf24; font-weight: 800; }
 
-        /* COMPACT TAX-FREE CARD */
+        /* TAX CARD */
         .tax-card {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.85) 100%);
             border: 1px solid rgba(251, 191, 36, 0.35);
@@ -148,7 +137,7 @@
         .tax-text { font-size: 12px; color: #cbd5e1; line-height: 1.35; }
         .tax-text strong { color: #fbbf24; font-weight: 800; }
 
-        /* General Card Styling */
+        /* Cards */
         .card { 
             background: rgba(15, 23, 42, 0.75); 
             border: 1px solid rgba(255, 255, 255, 0.08); 
@@ -159,11 +148,7 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
-        .card.faded {
-            opacity: 0.85;
-            border-color: rgba(255, 255, 255, 0.05);
-        }
-
+        .card.faded { opacity: 0.85; border-color: rgba(255, 255, 255, 0.05); }
         .card h2 { font-size: 19px; font-weight: 800; margin-bottom: 6px; }
         .card p { color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
         
@@ -194,123 +179,60 @@
             cursor: pointer; 
             transition: background 0.2s;
         }
-        .btn-secondary:hover { background: rgba(51, 65, 85, 0.9); }
 
-        /* OPTIMIZED GAME BANNER */
+        /* Banner Animation */
         .game-banner-anim {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
-            border-radius: 14px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 16px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            will-change: transform;
+            width: 100%; height: 150px; background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+            border-radius: 14px; position: relative; overflow: hidden; margin-bottom: 16px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.15);
         }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            animation: move-cloud linear infinite;
-            transform: translateZ(0);
-        }
+        .cloud { position: absolute; background: rgba(255, 255, 255, 0.2); border-radius: 20px; animation: move-cloud linear infinite; }
         .cloud1 { width: 55px; height: 16px; top: 25px; animation-duration: 9s; }
         .cloud2 { width: 75px; height: 20px; top: 65px; animation-duration: 14s; }
+        @keyframes move-cloud { 0% { right: -120px; } 100% { right: 110%; } }
 
-        @keyframes move-cloud {
-            0% { right: -120px; }
-            100% { right: 110%; }
-        }
-
-        .obstacle {
-            position: absolute;
-            width: 20px;
-            background: linear-gradient(90deg, #22c55e 0%, #15803d 100%);
-            border: 1px solid #166534;
-            border-radius: 4px;
-            animation: move-obstacle 4s linear infinite;
-            transform: translateZ(0);
-        }
+        .obstacle { position: absolute; width: 20px; background: linear-gradient(90deg, #22c55e 0%, #15803d 100%); border: 1px solid #166534; border-radius: 4px; animation: move-obstacle 4s linear infinite; }
         .obstacle-top { top: 0; height: 42px; }
         .obstacle-bottom { bottom: 0; height: 46px; }
+        @keyframes move-obstacle { 0% { right: -30px; } 100% { right: 110%; } }
 
-        @keyframes move-obstacle {
-            0% { right: -30px; }
-            100% { right: 110%; }
-        }
-
-        .paper-plane-svg {
-            position: absolute;
-            left: 22%;
-            top: 42%;
-            width: 42px;
-            height: 42px;
-            animation: float-plane 2s ease-in-out infinite alternate;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-            z-index: 5;
-            transform: translateZ(0);
-        }
-
-        @keyframes float-plane {
-            0% { transform: translateY(0px) rotate(-5deg); }
-            100% { transform: translateY(-10px) rotate(-15deg); }
-        }
+        .paper-plane-svg { position: absolute; left: 22%; top: 42%; width: 42px; height: 42px; animation: float-plane 2s ease-in-out infinite alternate; z-index: 5; }
+        @keyframes float-plane { 0% { transform: translateY(0px) rotate(-5deg); } 100% { transform: translateY(-10px) rotate(-15deg); } }
 
         /* Terms Card */
-        .terms-card { 
-            background: rgba(15, 23, 42, 0.75); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            border-radius: 20px; 
-            padding: 20px; 
-            text-align: left; 
-            backdrop-filter: blur(10px);
-        }
-        .terms-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            font-weight: 800; 
-            color: #fbbf24; 
-            font-size: 15px; 
-            margin-bottom: 14px; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 10px;
-        }
+        .terms-card { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; text-align: left; }
+        .terms-header { font-weight: 800; color: #fbbf24; font-size: 15px; margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; }
         .term-item { margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); padding-bottom: 10px; }
         .term-item:last-child { border: none; padding-bottom: 0; margin-bottom: 0; }
         .term-title { font-size: 13px; font-weight: 800; color: #f8fafc; margin-bottom: 3px; }
         .term-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
 
-        /* TELEGRAM FLOATING BUTTON */
-        .floating-telegram { 
-            position: fixed; 
-            bottom: 24px; 
-            right: 20px; 
-            width: 52px; 
-            height: 52px; 
-            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%); 
-            border-radius: 50%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            color: #fff; 
-            box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5); 
-            text-decoration: none; 
-            z-index: 99; 
-            transition: transform 0.2s;
-        }
-        .floating-telegram:hover { transform: scale(1.08); }
-        .floating-telegram svg { width: 26px; height: 26px; fill: #ffffff; margin-left: -2px; }
+        /* Floating Telegram Support */
+        .floating-telegram { position: fixed; bottom: 24px; right: 20px; width: 52px; height: 52px; background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5); text-decoration: none; z-index: 99; }
+        .floating-telegram svg { width: 26px; height: 26px; fill: #ffffff; }
 
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.3); padding: 26px 22px; border-radius: 20px; width: 100%; max-width: 380px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        .close-btn { position: absolute; top: 14px; right: 18px; font-size: 22px; color: #94a3b8; cursor: pointer; }
-        .modal input { width: 100%; padding: 12px; margin: 8px 0; background: #030712; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; font-size: 14px; }
+        /* AUTH MODAL STYLING */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
+        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 12px; right: 16px; font-size: 24px; color: #94a3b8; cursor: pointer; }
+        
+        /* Tab Switcher */
+        .tab-buttons { display: flex; background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 4px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.1); }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: #fbbf24; color: #000; box-shadow: 0 2px 10px rgba(251, 191, 36, 0.3); }
+
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; font-weight: 600; }
+        .modal input { width: 100%; padding: 11px 14px; background: #030712; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; font-size: 14px; }
         .modal input:focus { border-color: #fbbf24; }
+
+        /* Profile Picture Upload Styling */
+        .avatar-upload { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 14px; }
+        .avatar-preview { width: 70px; height: 70px; border-radius: 50%; border: 2px dashed #fbbf24; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #030712; position: relative; }
+        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .avatar-preview span { font-size: 24px; color: #94a3b8; }
+        .file-label { font-size: 11px; background: rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 20px; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .file-label:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -324,17 +246,10 @@
         </div>
     </div>
 
-    <!-- Floating Winners Ticker -->
+    <!-- Ticker -->
     <div class="ticker-container">
         <div class="ticker-badge">🔥 WINNERS</div>
         <div class="ticker-wrapper">
-            <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
-            <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
-            <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
-            <div class="ticker-item">Riya K. won <span>₹1,309</span> last week &nbsp;•</div>
-            <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
-            <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
-            
             <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
             <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
             <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
@@ -345,14 +260,11 @@
     </div>
 
     <div class="container">
-        
-        <!-- HERO HEADLINE SECTION -->
         <div class="hero-headline">
             <h1 class="hero-title">INDIA'S FIRST PAPER GLIDE GAME</h1>
             <p class="hero-subtitle">Show your Skill, not your Luck<br>And win <span>100% Real Cash</span></p>
         </div>
 
-        <!-- COMPACT TAX-FREE BANNER -->
         <div class="tax-card">
             <div class="tax-icon">🛡️</div>
             <div class="tax-text">
@@ -361,101 +273,113 @@
             </div>
         </div>
 
-        <!-- Paper Glide Arena Card -->
         <div class="card">
             <div class="game-banner-anim">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 <div class="obstacle obstacle-top"></div>
                 <div class="obstacle obstacle-bottom"></div>
-                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/>
-                </svg>
+                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none"><path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/></svg>
             </div>
             <h2>Paper Glide Arena</h2>
             <p>Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!</p>
             <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
         </div>
 
-        <!-- Practice Arena Card -->
         <div class="card faded">
             <div class="game-banner-anim" style="filter: saturate(0.6) brightness(0.85);">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
                 <div class="obstacle obstacle-top"></div>
                 <div class="obstacle obstacle-bottom"></div>
-                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/>
-                </svg>
+                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none"><path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/></svg>
             </div>
             <h2>Practice Match Arena</h2>
             <p>Practice your flying skills for free before entering real cash battles!</p>
             <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
         </div>
 
-        <!-- Terms & Conditions -->
         <div class="terms-card">
-            <div class="terms-header">
-                <span>📜 Detailed Terms & Conditions</span>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">1. Legal Age & User Eligibility</div>
-                <div class="term-desc">You must be at least 18 years of age to register, participate in cash contests, or execute financial transactions on Win2Earn. Accounts violating age norms will be permanently banned.</div>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">2. State Restrictions Policy</div>
-                <div class="term-desc">In compliance with local gaming state laws, players residing in Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu are strictly restricted from participating in real cash matches.</div>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">3. Game of Pure Skill Declaration</div>
-                <div class="term-desc">Paper Glide is legally classified as a 'Game of Skill' as per Indian Supreme Court rulings. Match outcomes depend strictly on hand-eye coordination, timing, reaction speed, and player judgment.</div>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">4. Tax Exemption & Platform Fee</div>
-                <div class="term-desc">0% Government TDS is deducted from user payouts. To maintain operational servers and maintain game integrity, a standard 15% Platform Convenience Fee is deducted from gross winning balances.</div>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">5. Fraud Control & Fair Play Policy</div>
-                <div class="term-desc">Use of bots, hacks, scripts, multiple accounts, or third-party cheating tools is strictly forbidden. Win2Earn reserves the right to freeze balances and terminate accounts engaging in fraudulent actions.</div>
-            </div>
-
-            <div class="term-item">
-                <div class="term-title">6. Withdrawals & Account Verification</div>
-                <div class="term-desc">Cash withdrawals are processed directly to verified UPI IDs or Bank accounts. Win2Earn reserves the right to ask for identity verification before releasing large winnings.</div>
-            </div>
+            <div class="terms-header">📜 Detailed Terms & Conditions</div>
+            <div class="term-item"><div class="term-title">1. Legal Age & User Eligibility</div><div class="term-desc">Must be at least 18 years of age to register or play cash contests.</div></div>
+            <div class="term-item"><div class="term-title">2. State Restrictions</div><div class="term-desc">Restricted in Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu.</div></div>
+            <div class="term-item"><div class="term-title">3. Game of Pure Skill</div><div class="term-desc">100% Skill-based game legally protected under Indian Supreme Court guidelines.</div></div>
+            <div class="term-item"><div class="term-title">4. Tax & Fees</div><div class="term-desc">0% Govt TDS deducted. 15% Platform Convenience Fee on total payouts.</div></div>
         </div>
-
     </div>
 
-    <!-- Floating Telegram Support -->
-    <a href="https://t.me/your_telegram_channel" target="_blank" class="floating-telegram" title="Telegram Support">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/>
-        </svg>
-    </a>
+    <!-- Telegram Link -->
+    <a href="https://t.me/your_telegram_channel" target="_blank" class="floating-telegram"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/></svg></a>
 
-    <!-- Auth Modal -->
+    <!-- AUTHENTICATION MODAL -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeAuth()">&times;</span>
-            <h2 id="modalTitle" style="color:#fbbf24; margin-bottom: 12px; font-size: 20px;">Sign Up</h2>
             
-            <div id="registerForm">
-                <input type="email" id="email" placeholder="Gmail Address">
-                <input type="tel" id="phone" placeholder="Phone Number">
-                <input type="password" id="password" placeholder="Password">
-                <button class="btn-main" style="margin-top: 10px;" onclick="sendOTP()">Send Real Gmail OTP</button>
+            <!-- Tab Switcher -->
+            <div class="tab-buttons">
+                <button class="tab-btn" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+                <button class="tab-btn" id="tabLogin" onclick="switchTab('login')">Login</button>
             </div>
 
-            <div id="otpForm" style="display: none;">
-                <p style="font-size: 13px; color: #38bdf8; margin-bottom: 8px;">Check your Gmail Inbox for 6-Digit OTP</p>
-                <input type="text" id="otpInput" placeholder="Enter 6-Digit OTP" maxlength="6">
-                <button class="btn-main" style="margin-top: 10px;" onclick="verifyOTP()">Verify OTP & Start</button>
+            <!-- LOGIN FORM (Existing Users) -->
+            <div id="loginSection" style="display: none;">
+                <div class="form-group">
+                    <label>Gmail Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your registered email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password">
+                </div>
+                <button class="btn-main" style="margin-top: 10px;" onclick="handleLogin()">Login Now</button>
+            </div>
+
+            <!-- SIGN UP FORM (New Users) -->
+            <div id="signupSection">
+                <div id="registerInputs">
+                    <!-- Profile Picture Selection -->
+                    <div class="avatar-upload">
+                        <div class="avatar-preview">
+                            <span id="avatarPlaceholder">👤</span>
+                            <img id="avatarImg" src="" alt="Profile Preview">
+                        </div>
+                        <label for="profilePicInput" class="file-label">📷 Upload Profile Photo</label>
+                        <input type="file" id="profilePicInput" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signupName" placeholder="Your Full Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="signupPhone" placeholder="10-Digit Mobile Number" maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gmail Address</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your Gmail address">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Create Password</label>
+                        <input type="password" id="signupPassword" placeholder="Choose a strong password">
+                    </div>
+
+                    <button class="btn-main" style="margin-top: 8px;" onclick="sendOTP()">Send Email OTP</button>
+                </div>
+
+                <!-- OTP Verification Area -->
+                <div id="otpSection" style="display: none;">
+                    <p style="font-size: 13px; color: #38bdf8; margin-bottom: 12px; text-align: center;">Check your Gmail Inbox for the 6-Digit OTP</p>
+                    <div class="form-group">
+                        <label>Enter 6-Digit OTP</label>
+                        <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6">
+                    </div>
+                    <button class="btn-main" style="margin-top: 10px;" onclick="verifyOTP()">Verify OTP & Complete Sign Up</button>
+                </div>
             </div>
 
             <p id="statusMsg" style="font-size: 12px; margin-top: 12px; text-align: center; color: #38bdf8;"></p>
@@ -464,62 +388,130 @@
 
     <script>
         const BACKEND_URL = "https://win2earn.onrender.com";
+        let profilePicBase64 = "";
 
-        function openAuth(type) {
+        function openAuth(mode) {
             document.getElementById('authModal').style.display = 'flex';
-            document.getElementById('modalTitle').innerText = type === 'login' ? 'Login to Win2Earn' : 'Create Account';
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('otpForm').style.display = 'none';
-            document.getElementById('statusMsg').innerText = '';
+            switchTab(mode);
         }
 
         function closeAuth() {
             document.getElementById('authModal').style.display = 'none';
         }
 
-        async function sendOTP() {
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value.trim();
+        function switchTab(mode) {
+            document.getElementById('statusMsg').innerText = '';
+            if (mode === 'login') {
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('tabSignup').classList.remove('active');
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('signupSection').style.display = 'none';
+            } else {
+                document.getElementById('tabSignup').classList.add('active');
+                document.getElementById('tabLogin').classList.remove('active');
+                document.getElementById('signupSection').style.display = 'block';
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('registerInputs').style.display = 'block';
+                document.getElementById('otpSection').style.display = 'none';
+            }
+        }
+
+        // Profile Picture Preview
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePicBase64 = e.target.result;
+                    document.getElementById('avatarImg').src = e.target.result;
+                    document.getElementById('avatarImg').style.display = 'block';
+                    document.getElementById('avatarPlaceholder').style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // REAL LOGIN FUNCTION (Existing Users Only)
+        async function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
             const statusMsg = document.getElementById('statusMsg');
 
-            if (!email || !phone || !password) {
-                alert("Please fill all fields!");
+            if (!email || !password) {
+                alert("Please enter both Email and Password!");
                 return;
             }
 
-            statusMsg.innerText = "Connecting to Real OTP Server...";
+            statusMsg.innerText = "Authenticating...";
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Login Successful!");
+                    localStorage.setItem('userToken', data.token);
+                    localStorage.setItem('userData', JSON.stringify(data.user));
+                    window.location.reload();
+                } else {
+                    statusMsg.innerText = data.message || "Invalid Email or Password! If you don't have an account, please Sign Up first.";
+                }
+            } catch (error) {
+                statusMsg.innerText = "Server connection error. Please try again in a few seconds.";
+            }
+        }
+
+        // REAL SIGN UP - STEP 1: SEND OTP
+        async function sendOTP() {
+            const name = document.getElementById('signupName').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+            const statusMsg = document.getElementById('statusMsg');
+
+            if (!name || !phone || !email || !password) {
+                alert("Please fill all details (Name, Mobile, Email, Password)!");
+                return;
+            }
+
+            statusMsg.innerText = "Sending Real Gmail OTP...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, phone, password })
+                    body: JSON.stringify({ name, phone, email, password, profilePic: profilePicBase64 })
                 });
 
                 const data = await response.json();
                 statusMsg.innerText = data.message;
 
                 if (response.ok) {
-                    document.getElementById('registerForm').style.display = 'none';
-                    document.getElementById('otpForm').style.display = 'block';
+                    document.getElementById('registerInputs').style.display = 'none';
+                    document.getElementById('otpSection').style.display = 'block';
                 }
             } catch (error) {
-                statusMsg.innerText = "Backend Server is connecting... Please wait 10 seconds and try again.";
+                statusMsg.innerText = "Connecting to backend... Wait 10s if server was sleeping.";
             }
         }
 
+        // REAL SIGN UP - STEP 2: VERIFY OTP
         async function verifyOTP() {
-            const email = document.getElementById('email').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
             const otp = document.getElementById('otpInput').value.trim();
             const statusMsg = document.getElementById('statusMsg');
 
             if (!otp) {
-                alert("Enter OTP!");
+                alert("Please enter the OTP sent to your Gmail!");
                 return;
             }
 
-            statusMsg.innerText = "Verifying Real OTP...";
+            statusMsg.innerText = "Verifying OTP...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
@@ -531,10 +523,10 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert("Account Created & Verified Successfully!");
-                    window.location.reload();
+                    alert("Account Created & Verified Successfully! You can now Login.");
+                    switchTab('login');
                 } else {
-                    statusMsg.innerText = data.message || "Invalid OTP";
+                    statusMsg.innerText = data.message || "Invalid OTP! Check your email and try again.";
                 }
             } catch (error) {
                 statusMsg.innerText = "Verification failed! Check server logs.";
@@ -543,3 +535,4 @@
     </script>
 </body>
 </html>
+
