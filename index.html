@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win2Earn - Gaming Dashboard</title>
+    <title>Win2Earn - India's First Paper Glide Game</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
@@ -37,7 +37,7 @@
             background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(255, 255, 255, 0.15); 
             color: #f1f5f9; 
-            padding: 9px 18px; 
+            padding: 8px 16px; 
             border-radius: 10px; 
             font-weight: 700; 
             cursor: pointer; 
@@ -48,7 +48,7 @@
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); 
             border: none; 
             color: #000000; 
-            padding: 9px 20px; 
+            padding: 8px 18px; 
             border-radius: 10px; 
             font-weight: 800; 
             cursor: pointer; 
@@ -65,18 +65,20 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            height: 40px;
+            height: 38px;
         }
+        /* CURVED WINNER BADGE */
         .ticker-badge {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             color: #000;
             font-weight: 900;
-            padding: 5px 14px;
+            padding: 5px 14px 5px 12px;
             font-size: 11px;
             letter-spacing: 0.5px;
             z-index: 2;
             white-space: nowrap;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.9);
+            border-radius: 0 14px 14px 0; /* Smooth curve on the right side */
+            box-shadow: 3px 0 12px rgba(0,0,0,0.8);
         }
         .ticker-wrapper {
             display: flex;
@@ -84,7 +86,7 @@
             animation: ticker-scroll 22s linear infinite;
         }
         .ticker-item {
-            font-size: 13px;
+            font-size: 12.5px;
             color: #94a3b8;
             padding: 0 18px;
             font-weight: 500;
@@ -103,48 +105,78 @@
         /* Container */
         .container { max-width: 480px; margin: 0 auto; padding: 20px 16px; }
 
+        /* HERO HEADLINE SECTION */
+        .hero-headline {
+            text-align: center;
+            padding: 15px 5px 22px 5px;
+        }
+        .hero-title {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 30%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 14px;
+            color: #cbd5e1;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .hero-subtitle span {
+            color: #fbbf24;
+            font-weight: 800;
+        }
+
+        /* COMPACT TAX-FREE CARD */
+        .tax-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.85) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+        }
+        .tax-icon { font-size: 22px; flex-shrink: 0; }
+        .tax-text { font-size: 12px; color: #cbd5e1; line-height: 1.35; }
+        .tax-text strong { color: #fbbf24; font-weight: 800; }
+
         /* General Card Styling */
         .card { 
             background: rgba(15, 23, 42, 0.75); 
             border: 1px solid rgba(255, 255, 255, 0.08); 
             border-radius: 20px; 
-            padding: 24px 20px; 
+            padding: 20px; 
             margin-bottom: 18px; 
             text-align: center; 
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
-        
-        .badge { 
-            display: inline-block; 
-            background: rgba(251, 191, 36, 0.12); 
-            border: 1px solid rgba(251, 191, 36, 0.35); 
-            color: #fbbf24; 
-            font-size: 12px; 
-            font-weight: 700; 
-            padding: 5px 14px; 
-            border-radius: 20px; 
-            margin-bottom: 14px; 
-            letter-spacing: 0.3px;
+        .card.faded {
+            opacity: 0.85;
+            border-color: rgba(255, 255, 255, 0.05);
         }
-        
-        .card h1 { font-size: 26px; font-weight: 900; margin-bottom: 10px; line-height: 1.25; }
-        .card h1 span { 
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-        }
-        .card p { color: #94a3b8; font-size: 13.5px; line-height: 1.55; margin-bottom: 18px; }
+
+        .card h2 { font-size: 19px; font-weight: 800; margin-bottom: 6px; }
+        .card p { color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
         
         .btn-main { 
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); 
             color: #000; 
             border: none; 
             width: 100%; 
-            padding: 15px; 
+            padding: 14px; 
             border-radius: 12px; 
             font-weight: 900; 
-            font-size: 16px; 
+            font-size: 15px; 
             cursor: pointer; 
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); 
             transition: all 0.2s ease;
@@ -156,78 +188,87 @@
             color: #fff; 
             border: 1px solid rgba(255, 255, 255, 0.12); 
             width: 100%; 
-            padding: 15px; 
+            padding: 13px; 
             border-radius: 12px; 
             font-weight: 800; 
-            font-size: 15px; 
+            font-size: 14px; 
             cursor: pointer; 
             transition: background 0.2s;
         }
         .btn-secondary:hover { background: rgba(51, 65, 85, 0.9); }
 
-        /* ULTRA-ATTRACTIVE BOLD TAX-FREE CARD */
-        .tax-card {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(251, 191, 36, 0.4);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 18px;
-            text-align: left;
+        /* ANIMATED GAME BANNER (Clouds, Obstacles, Aeroplane) */
+        .game-banner-anim {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+            border-radius: 14px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
-        }
-        .tax-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
-        }
-        .tax-title {
-            color: #fbbf24;
-            font-weight: 900;
-            font-size: 15px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-        }
-        .tax-desc {
-            color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.55;
-            margin: 0;
-        }
-        .tax-highlight {
-            color: #ffffff;
-            font-weight: 800;
-            background: rgba(251, 191, 36, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid rgba(251, 191, 36, 0.3);
+            margin-bottom: 16px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        /* Game Banner */
-        .game-banner { 
-            width: 100%; 
-            height: 160px; 
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
-            border-radius: 14px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            margin-bottom: 18px; 
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+        /* Moving Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            animation: move-cloud linear infinite;
         }
-        .plane-icon { font-size: 55px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4)); transform: rotate(-15deg); }
+        .cloud::before, .cloud::after {
+            content: ''; position: absolute; background: rgba(255, 255, 255, 0.25); border-radius: 50%;
+        }
+        .cloud1 { width: 50px; height: 16px; top: 20px; animation-duration: 7s; }
+        .cloud1::before { width: 22px; height: 22px; top: -10px; left: 8px; }
+        .cloud2 { width: 70px; height: 20px; top: 60px; animation-duration: 11s; }
+        .cloud2::before { width: 28px; height: 28px; top: -12px; left: 12px; }
+
+        @keyframes move-cloud {
+            0% { right: -100px; }
+            100% { right: 100%; }
+        }
+
+        /* Moving Obstacles / Pipes */
+        .obstacle {
+            position: absolute;
+            width: 22px;
+            background: linear-gradient(90deg, #22c55e 0%, #15803d 100%);
+            border: 1px solid #166534;
+            border-radius: 4px;
+            animation: move-obstacle 3.5s linear infinite;
+        }
+        .obstacle-top { top: 0; height: 45px; }
+        .obstacle-bottom { bottom: 0; height: 50px; }
+
+        @keyframes move-obstacle {
+            0% { right: -30px; }
+            100% { right: 100%; }
+        }
+
+        /* Flying Paper Plane */
+        .plane-anim {
+            position: absolute;
+            left: 20%;
+            top: 42%;
+            font-size: 38px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+            animation: float-plane 2s ease-in-out infinite alternate;
+            z-index: 5;
+        }
+
+        @keyframes float-plane {
+            0% { transform: translateY(0px) rotate(-8deg); }
+            100% { transform: translateY(-14px) rotate(-18deg); }
+        }
 
         /* Terms Card */
         .terms-card { 
             background: rgba(15, 23, 42, 0.75); 
             border: 1px solid rgba(255, 255, 255, 0.08); 
             border-radius: 20px; 
-            padding: 22px; 
+            padding: 20px; 
             text-align: left; 
             backdrop-filter: blur(10px);
         }
@@ -238,27 +279,29 @@
             font-weight: 800; 
             color: #fbbf24; 
             font-size: 15px; 
-            margin-bottom: 16px; 
+            margin-bottom: 14px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
         }
-        .term-item { margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px; }
+        .term-item { margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); padding-bottom: 10px; }
         .term-item:last-child { border: none; padding-bottom: 0; margin-bottom: 0; }
-        .term-title { font-size: 13.5px; font-weight: 800; color: #f8fafc; margin-bottom: 4px; }
-        .term-desc { font-size: 12.5px; color: #94a3b8; line-height: 1.5; }
+        .term-title { font-size: 13px; font-weight: 800; color: #f8fafc; margin-bottom: 3px; }
+        .term-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
 
         /* Floating Telegram */
         .floating-btn { 
             position: fixed; 
             bottom: 24px; 
             right: 20px; 
-            width: 52px; 
-            height: 52px; 
+            width: 50px; 
+            height: 50px; 
             background: linear-gradient(135deg, #0088cc 0%, #006699 100%); 
             border-radius: 50%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             color: #fff; 
-            font-size: 24px; 
+            font-size: 22px; 
             box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); 
             text-decoration: none; 
             z-index: 99; 
@@ -268,9 +311,9 @@
 
         /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.3); padding: 28px 24px; border-radius: 20px; width: 100%; max-width: 380px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.3); padding: 26px 22px; border-radius: 20px; width: 100%; max-width: 380px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
         .close-btn { position: absolute; top: 14px; right: 18px; font-size: 22px; color: #94a3b8; cursor: pointer; }
-        .modal input { width: 100%; padding: 13px; margin: 10px 0; background: #030712; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; font-size: 14px; }
+        .modal input { width: 100%; padding: 12px; margin: 8px 0; background: #030712; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; font-size: 14px; }
         .modal input:focus { border-color: #fbbf24; }
     </style>
 </head>
@@ -285,7 +328,7 @@
         </div>
     </div>
 
-    <!-- Floating Winners Ticker -->
+    <!-- Floating Winners Ticker with Curved Badge -->
     <div class="ticker-container">
         <div class="ticker-badge">🔥 WINNERS</div>
         <div class="ticker-wrapper">
@@ -296,7 +339,6 @@
             <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
             <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
             
-            <!-- Duplicated list for smooth infinite scroll -->
             <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
             <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
             <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
@@ -308,66 +350,83 @@
 
     <div class="container">
         
-        <!-- Hero Section -->
-        <div class="card">
-            <span class="badge">👑 Skill-Based Real Cash Game</span>
-            <h1>Play Paper Glide &<br><span>Win Real Cash Daily!</span></h1>
-            <p>Fly your plane, dodge obstacles & earn cash directly into your wallet with <b>Instant Withdrawals</b>!</p>
-            <button class="btn-main" onclick="openAuth('signup')">▶ Play Now & Win Cash</button>
+        <!-- NEW CLEAN HERO HEADLINE SECTION -->
+        <div class="hero-headline">
+            <h1 class="hero-title">INDIA'S FIRST PAPER GLIDE GAME</h1>
+            <p class="hero-subtitle">Show your Skill, not your Luck<br>And win <span>100% Real Cash</span></p>
         </div>
 
-        <!-- BOLD ATTRACTIVE TAX-FREE BANNER -->
+        <!-- COMPACT TAX-FREE BANNER -->
         <div class="tax-card">
-            <div class="tax-title">
-                <span>🛡️</span> 100% TAX-FREE WINNINGS (0% GOVT TAX)
+            <div class="tax-icon">🛡️</div>
+            <div class="tax-text">
+                <strong>100% Tax-Free Winnings (0% Govt Tax)</strong><br>
+                Zero government TDS deducted! Standard 15% App Platform Fee applies on gross payouts.
             </div>
-            <p class="tax-desc">
-                Enjoy 100% tax-free payouts with zero government TDS deducted! A standard <span class="tax-highlight">15% App Platform Fee</span> applies on gross winnings for seamless gameplay.
-            </p>
         </div>
 
-        <!-- Paper Glide Arena Card -->
+        <!-- Paper Glide Arena Card with Animation -->
         <div class="card">
-            <div class="game-banner">
-                <div class="plane-icon">✈️</div>
+            <div class="game-banner-anim">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+                <div class="obstacle obstacle-top"></div>
+                <div class="obstacle obstacle-bottom"></div>
+                <div class="plane-anim">✈️</div>
             </div>
-            <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">Paper Glide Arena</h2>
+            <h2>Paper Glide Arena</h2>
             <p>Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!</p>
             <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
         </div>
 
-        <!-- Practice Arena Card -->
-        <div class="card">
-            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px;">Practice Match Arena</h3>
+        <!-- Practice Arena Card (Faded Animation) -->
+        <div class="card faded">
+            <div class="game-banner-anim" style="filter: saturate(0.7) brightness(0.9);">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+                <div class="obstacle obstacle-top"></div>
+                <div class="obstacle obstacle-bottom"></div>
+                <div class="plane-anim">✈️</div>
+            </div>
+            <h2>Practice Match Arena</h2>
             <p>Practice your flying skills for free before entering real cash battles!</p>
             <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
         </div>
 
-        <!-- Terms & Conditions Section -->
+        <!-- Fully Detailed Terms & Conditions Section -->
         <div class="terms-card">
             <div class="terms-header">
-                <span>📑 Terms & Conditions</span>
-                <span>▼</span>
+                <span>📜 Detailed Terms & Conditions</span>
             </div>
 
             <div class="term-item">
-                <div class="term-title">1. Age Restriction</div>
-                <div class="term-desc">You must be at least 18 years old to participate in real cash games on Win2Earn.</div>
+                <div class="term-title">1. Legal Age & User Eligibility</div>
+                <div class="term-desc">You must be at least 18 years of age to register, participate in cash contests, or execute financial transactions on Win2Earn. Accounts violating age norms will be permanently banned.</div>
             </div>
 
             <div class="term-item">
-                <div class="term-title">2. Platform Fee & Tax Policy</div>
-                <div class="term-desc">0% Government tax is charged. A standard 15% App Commission / Platform fee is deducted from total prize pool winnings upon winning a match.</div>
+                <div class="term-title">2. State Restrictions Policy</div>
+                <div class="term-desc">In compliance with local gaming state laws, players residing in Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu are strictly restricted from participating in real cash matches.</div>
             </div>
 
             <div class="term-item">
-                <div class="term-title">3. Restricted States</div>
-                <div class="term-desc">Cash games are strictly prohibited for residents of Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu as per state regulations.</div>
+                <div class="term-title">3. Game of Pure Skill Declaration</div>
+                <div class="term-desc">Paper Glide is legally classified as a 'Game of Skill' as per Indian Supreme Court rulings. Match outcomes depend strictly on hand-eye coordination, timing, reaction speed, and player judgment.</div>
             </div>
 
             <div class="term-item">
-                <div class="term-title">4. Game of Skill</div>
-                <div class="term-desc">Win2Earn games are strictly skill-based. Success depends entirely on player hand-eye coordination, timing, and strategy.</div>
+                <div class="term-title">4. Tax Exemption & Platform Fee</div>
+                <div class="term-desc">0% Government TDS is deducted from user payouts. To maintain operational servers and maintain game integrity, a standard 15% Platform Convenience Fee is deducted from gross winning balances.</div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">5. Fraud Control & Fair Play Policy</div>
+                <div class="term-desc">Use of bots, hacks, scripts, multiple accounts, or third-party cheating tools is strictly forbidden. Win2Earn reserves the right to freeze balances and terminate accounts engaging in fraudulent actions.</div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">6. Withdrawals & Account Verification</div>
+                <div class="term-desc">Cash withdrawals are processed directly to verified UPI IDs or Bank accounts. Win2Earn reserves the right to ask for identity verification before releasing large winnings.</div>
             </div>
         </div>
 
@@ -380,7 +439,7 @@
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeAuth()">&times;</span>
-            <h2 id="modalTitle" style="color:#fbbf24; margin-bottom: 15px; font-size: 22px;">Sign Up</h2>
+            <h2 id="modalTitle" style="color:#fbbf24; margin-bottom: 12px; font-size: 20px;">Sign Up</h2>
             
             <div id="registerForm">
                 <input type="email" id="email" placeholder="Gmail Address">
@@ -477,3 +536,4 @@
     </script>
 </body>
 </html>
+
