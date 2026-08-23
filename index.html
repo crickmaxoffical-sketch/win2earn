@@ -15,13 +15,13 @@
             overflow-x: hidden;
         }
         
-        /* Navbar - Optimized Blur */
+        /* Navbar */
         .navbar { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             padding: 14px 20px; 
-            background: rgba(11, 17, 30, 0.95); 
+            background: #0b111e; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
             position: sticky; 
             top: 0; 
@@ -50,7 +50,7 @@
             cursor: pointer; 
         }
         
-        /* Floating Winners Ticker - Hardware Accelerated */
+        /* FAST & SMOOTH WINNERS TICKER */
         .ticker-container {
             background: #000000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -65,25 +65,26 @@
             background: #fbbf24;
             color: #000;
             font-weight: 900;
-            padding: 5px 14px 5px 12px;
+            padding: 5px 14px;
             font-size: 11px;
             letter-spacing: 0.5px;
             z-index: 2;
             white-space: nowrap;
             border-radius: 0 14px 14px 0;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.5);
         }
         .ticker-wrapper {
             display: flex;
             white-space: nowrap;
             will-change: transform;
-            animation: ticker-scroll 30s linear infinite;
+            animation: ticker-scroll 12s linear infinite; /* Speeded up from 30s/22s to 12s */
             transform: translate3d(0, 0, 0);
         }
         .ticker-item {
             font-size: 12.5px;
-            color: #94a3b8;
+            color: #cbd5e1;
             padding: 0 18px;
-            font-weight: 500;
+            font-weight: 600;
         }
         .ticker-item span {
             color: #4ade80;
@@ -128,7 +129,7 @@
         .tax-text { font-size: 12px; color: #cbd5e1; line-height: 1.35; }
         .tax-text strong { color: #fbbf24; font-weight: 800; }
 
-        /* Cards - Removed blur filter for speed */
+        /* Cards */
         .card { 
             background: #0f172a; 
             border: 1px solid rgba(255, 255, 255, 0.08); 
@@ -166,11 +167,11 @@
             cursor: pointer; 
         }
 
-        /* Banner Animation - GPU Optimized */
+        /* DYNAMIC & FAST GAME ANIMATION ARENA */
         .game-banner-anim {
             width: 100%; 
-            height: 140px; 
-            background: #0284c7;
+            height: 150px; 
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
             border-radius: 14px; 
             position: relative; 
             overflow: hidden; 
@@ -178,43 +179,76 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             contain: strict;
         }
+
+        /* Fast Moving Clouds */
         .cloud { 
             position: absolute; 
-            background: rgba(255, 255, 255, 0.25); 
+            background: rgba(255, 255, 255, 0.3); 
             border-radius: 20px; 
             will-change: transform;
             animation: move-cloud linear infinite; 
-            transform: translate3d(0, 0, 0);
         }
-        .cloud1 { width: 55px; height: 16px; top: 25px; animation-duration: 12s; }
-        .cloud2 { width: 75px; height: 20px; top: 65px; animation-duration: 18s; }
-        @keyframes move-cloud { 0% { transform: translate3d(120px, 0, 0); } 100% { transform: translate3d(-350px, 0, 0); } }
+        .cloud1 { width: 50px; height: 14px; top: 15px; animation-duration: 4s; }
+        .cloud2 { width: 65px; height: 18px; top: 45px; animation-duration: 6s; }
+        @keyframes move-cloud { 0% { transform: translate3d(400px, 0, 0); } 100% { transform: translate3d(-100px, 0, 0); } }
 
-        .obstacle { 
-            position: absolute; 
-            width: 20px; 
-            background: #15803d; 
-            border: 1px solid #166534; 
-            border-radius: 4px; 
+        /* REALISTIC OBSTACLE PIPES (Fast Moving) */
+        .pipe-pair {
+            position: absolute;
+            width: 28px;
+            height: 100%;
             will-change: transform;
-            animation: move-obstacle 5s linear infinite; 
-            transform: translate3d(0, 0, 0);
+            animation: move-pipe 2.4s linear infinite;
         }
-        .obstacle-top { top: 0; height: 42px; }
-        .obstacle-bottom { bottom: 0; height: 46px; }
-        @keyframes move-obstacle { 0% { transform: translate3d(50px, 0, 0); } 100% { transform: translate3d(-380px, 0, 0); } }
+        .pipe-pair.delay {
+            animation-delay: 1.2s;
+        }
 
+        .pipe-top {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(90deg, #22c55e 0%, #15803d 100%);
+            border: 2px solid #166534;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            box-shadow: inset -3px 0 5px rgba(0,0,0,0.3);
+        }
+
+        .pipe-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(90deg, #22c55e 0%, #15803d 100%);
+            border: 2px solid #166534;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            box-shadow: inset -3px 0 5px rgba(0,0,0,0.3);
+        }
+
+        @keyframes move-pipe {
+            0% { transform: translate3d(420px, 0, 0); }
+            100% { transform: translate3d(-50px, 0, 0); }
+        }
+
+        /* FAST GLIDING PLANE */
         .paper-plane-svg { 
             position: absolute; 
-            left: 22%; 
-            top: 42%; 
-            width: 42px; 
-            height: 42px; 
+            left: 20%; 
+            top: 40%; 
+            width: 38px; 
+            height: 38px; 
             will-change: transform;
-            animation: float-plane 2.5s ease-in-out infinite alternate; 
+            animation: float-plane 0.8s ease-in-out infinite alternate; 
             z-index: 5; 
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
         }
-        @keyframes float-plane { 0% { transform: translate3d(0, 0px, 0) rotate(-5deg); } 100% { transform: translate3d(0, -10px, 0) rotate(-15deg); } }
+        @keyframes float-plane { 
+            0% { transform: translate3d(0, 0px, 0) rotate(-12deg); } 
+            100% { transform: translate3d(0, -18px, 0) rotate(8deg); } 
+        }
 
         /* Terms Card */
         .terms-card { background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 20px; text-align: left; }
@@ -260,10 +294,17 @@
         </div>
     </div>
 
-    <!-- Ticker -->
+    <!-- Fast Floating Ticker -->
     <div class="ticker-container">
         <div class="ticker-badge">🔥 WINNERS</div>
         <div class="ticker-wrapper">
+            <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
+            <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
+            <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
+            <div class="ticker-item">Riya K. won <span>₹1,309</span> last week &nbsp;•</div>
+            <div class="ticker-item">Rohit M. won <span>₹45,200</span> today &nbsp;•</div>
+            <div class="ticker-item">Vikram S. won <span>₹9,500</span> yesterday &nbsp;•</div>
+            <!-- Duplicate set for seamless continuous loop -->
             <div class="ticker-item">Shubh won <span>₹12,400</span> last week &nbsp;•</div>
             <div class="ticker-item">Naitik won <span>₹1,77,008</span> last month &nbsp;•</div>
             <div class="ticker-item">Aman won <span>₹75,800</span> last month &nbsp;•</div>
@@ -287,26 +328,45 @@
             </div>
         </div>
 
+        <!-- MAIN GAME ARENA -->
         <div class="card">
             <div class="game-banner-anim">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
-                <div class="obstacle obstacle-top"></div>
-                <div class="obstacle obstacle-bottom"></div>
-                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none"><path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/></svg>
+                
+                <!-- Pipe Pair 1 -->
+                <div class="pipe-pair">
+                    <div class="pipe-top"></div>
+                    <div class="pipe-bottom"></div>
+                </div>
+
+                <!-- Pipe Pair 2 -->
+                <div class="pipe-pair delay">
+                    <div class="pipe-top" style="height: 30px;"></div>
+                    <div class="pipe-bottom" style="height: 65px;"></div>
+                </div>
+
+                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#fbbf24"/>
+                </svg>
             </div>
             <h2>Paper Glide Arena</h2>
             <p>Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!</p>
             <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
         </div>
 
+        <!-- PRACTICE ARENA -->
         <div class="card faded">
             <div class="game-banner-anim" style="filter: saturate(0.6);">
                 <div class="cloud cloud1"></div>
                 <div class="cloud cloud2"></div>
-                <div class="obstacle obstacle-top"></div>
-                <div class="obstacle obstacle-bottom"></div>
-                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none"><path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/></svg>
+                <div class="pipe-pair">
+                    <div class="pipe-top"></div>
+                    <div class="pipe-bottom"></div>
+                </div>
+                <svg class="paper-plane-svg" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.5 2L2 11.5L9.5 14.5M21.5 2L12.5 21.5L9.5 14.5M21.5 2L9.5 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#f8fafc"/>
+                </svg>
             </div>
             <h2>Practice Match Arena</h2>
             <p>Practice your flying skills for free before entering real cash battles!</p>
