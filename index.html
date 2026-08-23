@@ -3,145 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win2Earn - Sign Up & OTP Verification</title>
+    <title>Win2Earn - Gaming Dashboard</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0d1117;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 8px;
-            color: #f59e0b;
-            font-size: 24px;
-        }
-        p.subtitle {
-            font-size: 14px;
-            color: #8b949e;
-            margin-bottom: 24px;
-        }
-        .form-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            font-size: 13px;
-            color: #c9d1d9;
-            margin-bottom: 6px;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        input:focus {
-            border-color: #f59e0b;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #f59e0b;
-            color: #000000;
-            font-weight: bold;
-            font-size: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #d97706;
-        }
-        #otpBox {
-            display: none;
-        }
-        .status-msg {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #38bdf8;
-            word-break: break-word;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #080c14; color: #ffffff; padding-bottom: 40px; }
+        
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #0b111e; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
+        .logo span { color: #f59e0b; }
+        .nav-btns { display: flex; gap: 10px; }
+        .btn-login { background: transparent; border: 1px solid #334155; color: #f1f5f9; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-signup { background: #f59e0b; border: none; color: #000000; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        
+        /* Winners Ticker */
+        .ticker { background: #000000; padding: 8px 15px; display: flex; align-items: center; font-size: 13px; border-bottom: 1px solid #1e293b; overflow: hidden; white-space: nowrap; }
+        .ticker-badge { background: #f59e0b; color: #000; font-weight: 800; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 12px; }
+        .ticker-text { color: #94a3b8; }
+        .ticker-text span { color: #22c55e; font-weight: 700; }
+
+        /* Container */
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+
+        /* Hero Card */
+        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 20px; margin-bottom: 15px; text-align: center; }
+        .badge { display: inline-block; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: #f59e0b; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+        .card h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
+        .card h1 span { color: #f59e0b; }
+        .card p { color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+        
+        .btn-main { background: #f59e0b; color: #000; border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); }
+        .btn-secondary { background: #1e293b; color: #fff; border: 1px solid #334155; width: 100%; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; }
+
+        /* Game Arena Banner */
+        .game-banner { width: 100%; height: 160px; background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; position: relative; overflow: hidden; }
+        .plane-icon { font-size: 50px; transform: rotate(-15deg); }
+
+        /* Terms Section */
+        .terms-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 20px; text-align: left; }
+        .terms-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #f59e0b; font-size: 15px; margin-bottom: 15px; }
+        .term-item { margin-bottom: 14px; }
+        .term-title { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+        .term-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+
+        /* Floating Telegram */
+        .floating-btn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: #0088cc; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; z-index: 99; }
+
+        /* Auth Modal Popup */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #0f172a; border: 1px solid #1e293b; padding: 25px; border-radius: 16px; width: 100%; max-width: 380px; position: relative; }
+        .close-btn { position: absolute; top: 12px; right: 16px; font-size: 20px; color: #94a3b8; cursor: pointer; }
+        .modal input { width: 100%; padding: 12px; margin: 8px 0; background: #080c14; border: 1px solid #334155; border-radius: 8px; color: #fff; outline: none; }
     </style>
 </head>
 <body>
 
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Win<span>2Earn</span></div>
+        <div class="nav-btns">
+            <button class="btn-login" onclick="openAuth('login')">Login</button>
+            <button class="btn-signup" onclick="openAuth('signup')">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Winners Ticker -->
+    <div class="ticker">
+        <span class="ticker-badge">• WINNERS</span>
+        <span class="ticker-text">Aman won <span>₹75,800</span> last month &nbsp;&nbsp;|&nbsp;&nbsp; Riya K. won <span>₹1,309</span> last week</span>
+    </div>
+
     <div class="container">
-        <h2>Win2Earn</h2>
-        <p class="subtitle">Create an account to start earning</p>
-
-        <!-- Step 1: Registration Form -->
-        <div id="registerBox">
-            <div class="form-group">
-                <label for="email">Gmail Address</label>
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="Enter Phone Number" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter Password" required>
-            </div>
-            <button onclick="sendOTP()">Send OTP</button>
+        
+        <!-- Hero Section -->
+        <div class="card">
+            <span class="badge">👑 Skill-Based Real Cash Game</span>
+            <h1>Play Paper Glide &<br><span>Win Real Cash Daily!</span></h1>
+            <p>Fly your plane, dodge obstacles & earn cash directly into your wallet with <b>Instant Withdrawals</b>!</p>
+            <button class="btn-main" onclick="openAuth('signup')">▶ Play Now & Win Cash</button>
         </div>
 
-        <!-- Step 2: OTP Verification Form -->
-        <div id="otpBox">
-            <div class="form-group">
-                <label for="otpInput">Enter 6-Digit OTP</label>
-                <input type="text" id="otpInput" placeholder="123456" maxlength="6" required>
-            </div>
-            <button onclick="verifyOTP()">Verify OTP & Register</button>
+        <!-- Tax-Free Banner -->
+        <div class="card" style="text-align: left; padding: 15px;">
+            <div style="color: #f59e0b; font-weight: 700; font-size: 13px; margin-bottom: 5px;">🛡️ 100% Tax-Free Winnings (0% Govt Tax)</div>
+            <p style="margin: 0; font-size: 12px;">Enjoy 100% tax-free payouts! Zero government tax deducted. <b>15% App Platform Fee</b> applies on gross win for seamless gameplay!</p>
         </div>
 
-        <p id="msgText" class="status-msg"></p>
+        <!-- Paper Glide Arena Card -->
+        <div class="card">
+            <div class="game-banner">
+                <div class="plane-icon">✈️</div>
+            </div>
+            <h3 style="margin-bottom: 6px;">Paper Glide Arena</h3>
+            <p>Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!</p>
+            <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
+        </div>
+
+        <!-- Practice Arena Card -->
+        <div class="card">
+            <h3 style="margin-bottom: 6px;">Practice Match Arena</h3>
+            <p>Practice your flying skills for free before entering real cash battles!</p>
+            <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
+        </div>
+
+        <!-- Terms & Conditions Section -->
+        <div class="terms-card">
+            <div class="terms-header">
+                <span>📑 Terms & Conditions</span>
+                <span>▼</span>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">1. Age Restriction</div>
+                <div class="term-desc">You must be at least 18 years old to participate in real cash games on Win2Earn.</div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">2. Platform Fee & Tax Policy</div>
+                <div class="term-desc">0% Government tax is charged. A standard 15% App Commission / Platform fee is deducted from total prize pool winnings upon winning a match.</div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">3. Restricted States</div>
+                <div class="term-desc">Cash games are strictly prohibited for residents of Assam, Odisha, Nagaland, Sikkim, Telangana, Andhra Pradesh, and Tamil Nadu as per state regulations.</div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-title">4. Game of Skill</div>
+                <div class="term-desc">Win2Earn games are strictly skill-based. Success depends entirely on player hand-eye coordination, timing, and strategy.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Telegram Support -->
+    <a href="#" class="floating-btn">✈️</a>
+
+    <!-- Auth Modal (Login / Sign Up) -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuth()">&times;</span>
+            <h2 id="modalTitle" style="color:#f59e0b; margin-bottom: 15px;">Sign Up</h2>
+            
+            <div id="registerForm">
+                <input type="email" id="email" placeholder="Gmail Address">
+                <input type="tel" id="phone" placeholder="Phone Number">
+                <input type="password" id="password" placeholder="Password">
+                <button class="btn-main" style="margin-top: 10px;" onclick="sendOTP()">Send Gmail OTP</button>
+            </div>
+
+            <div id="otpForm" style="display: none;">
+                <p style="font-size: 13px; color: #38bdf8; margin-bottom: 8px;">Check your Gmail Inbox for 6-Digit OTP</p>
+                <input type="text" id="otpInput" placeholder="Enter 6-Digit OTP" maxlength="6">
+                <button class="btn-main" style="margin-top: 10px;" onclick="verifyOTP()">Verify OTP & Start</button>
+            </div>
+
+            <p id="statusMsg" style="font-size: 12px; margin-top: 12px; text-align: center; color: #38bdf8;"></p>
+        </div>
     </div>
 
     <script>
         const BACKEND_URL = "https://win2earn.onrender.com";
 
+        function openAuth(type) {
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('modalTitle').innerText = type === 'login' ? 'Login to Win2Earn' : 'Create Account';
+        }
+
+        function closeAuth() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
         async function sendOTP() {
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value.trim();
-            const msgText = document.getElementById('msgText');
+            const statusMsg = document.getElementById('statusMsg');
 
             if (!email || !phone || !password) {
-                alert("Please fill all details!");
+                alert("Please fill all fields!");
                 return;
             }
 
-            msgText.style.color = "#38bdf8";
-            msgText.innerText = "Sending OTP to your Gmail...";
+            statusMsg.innerText = "Sending OTP to your Gmail...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/register`, {
@@ -151,32 +195,28 @@
                 });
 
                 const data = await response.json();
-                msgText.innerText = data.message;
+                statusMsg.innerText = data.message;
 
                 if (response.ok) {
-                    document.getElementById('registerBox').style.display = 'none';
-                    document.getElementById('otpBox').style.display = 'block';
-                } else {
-                    msgText.style.color = "#f87171";
+                    document.getElementById('registerForm').style.display = 'none';
+                    document.getElementById('otpForm').style.display = 'block';
                 }
             } catch (error) {
-                msgText.style.color = "#f87171";
-                msgText.innerText = "Server Error. Please try again!";
+                statusMsg.innerText = "Server error. Please try again!";
             }
         }
 
         async function verifyOTP() {
             const email = document.getElementById('email').value.trim();
             const otp = document.getElementById('otpInput').value.trim();
-            const msgText = document.getElementById('msgText');
+            const statusMsg = document.getElementById('statusMsg');
 
             if (!otp) {
-                alert("Please enter the OTP!");
+                alert("Enter OTP!");
                 return;
             }
 
-            msgText.style.color = "#38bdf8";
-            msgText.innerText = "Verifying OTP...";
+            statusMsg.innerText = "Verifying...";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
@@ -188,18 +228,15 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert("Verification Successful! Account Created.");
+                    alert("Account Created Successfully!");
                     window.location.reload();
                 } else {
-                    msgText.style.color = "#f87171";
-                    msgText.innerText = data.message || "Invalid OTP";
+                    statusMsg.innerText = data.message || "Invalid OTP";
                 }
             } catch (error) {
-                msgText.style.color = "#f87171";
-                msgText.innerText = "Verification failed. Try again!";
+                statusMsg.innerText = "Verification failed!";
             }
         }
     </script>
 </body>
 </html>
-
