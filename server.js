@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB Connection Placeholder
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/win2earn';
+// MongoDB Atlas Connection
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://crickmaxoffical_db_user:xureUmFWpTEtHzKV@cluster0.unceciv.mongodb.net/win2earn?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB Connected Successfully'))
@@ -45,4 +45,3 @@ app.post('/api/register', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
