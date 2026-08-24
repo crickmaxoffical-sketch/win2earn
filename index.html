@@ -274,13 +274,30 @@
             margin-top: 3px;
         }
 
-        /* Floating Telegram Support */
-        .floating-telegram { position: fixed; bottom: 24px; right: 20px; width: 52px; height: 52px; background: #2AABEE; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; text-decoration: none; z-index: 99; transform: translateZ(0); }
+        /* Floating Telegram Support Button */
+        .floating-telegram { 
+            position: fixed; 
+            bottom: 24px; 
+            right: 20px; 
+            width: 52px; 
+            height: 52px; 
+            background: #2AABEE; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            color: #fff; 
+            cursor: pointer;
+            z-index: 99; 
+            transform: translateZ(0); 
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.4);
+            border: none;
+        }
         .floating-telegram svg { width: 26px; height: 26px; fill: #ffffff; }
 
-        /* MODAL STYLING (Shared for Auth and Terms) */
+        /* MODAL STYLING */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
-        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 420px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 420px; position: relative; max-height: 85vh; overflow-y: auto; text-align: center; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 24px; color: #94a3b8; cursor: pointer; }
         
         .tab-buttons { display: flex; background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 4px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.1); }
@@ -313,6 +330,48 @@
         }
         .term-warning-box h4 { font-size: 13px; font-weight: 800; color: #f87171; margin-bottom: 4px; }
         .term-warning-box p { font-size: 11.5px; color: #fca5a5; line-height: 1.45; }
+
+        /* TELEGRAM MODAL STYLES */
+        .telegram-icon-large {
+            width: 60px;
+            height: 60px;
+            background: #2AABEE;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 14px auto;
+        }
+        .telegram-icon-large svg { width: 32px; height: 32px; fill: #ffffff; }
+        .telegram-instruction {
+            background: rgba(42, 171, 238, 0.1);
+            border: 1px solid rgba(42, 171, 238, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin: 14px 0 20px 0;
+            text-align: left;
+        }
+        .telegram-instruction p {
+            font-size: 12.5px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+        .telegram-instruction p strong {
+            color: #38bdf8;
+        }
+        .btn-telegram-go {
+            background: #2AABEE;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -402,7 +461,7 @@
             <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
         </div>
 
-        <!-- CLICKABLE TERMS & CONDITIONS BOX -->
+        <!-- CLICKABLE TERMS BOX -->
         <div class="terms-box-btn" onclick="openTermsModal()">
             <div>
                 <div class="terms-box-title">📜 Terms & Conditions & Responsible Gaming</div>
@@ -412,8 +471,10 @@
         </div>
     </div>
 
-    <!-- Telegram Link -->
-    <a href="https://t.me/your_telegram_channel" target="_blank" class="floating-telegram"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/></svg></a>
+    <!-- Floating Telegram Support Button -->
+    <button class="floating-telegram" onclick="openTelegramModal()" title="Support">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/></svg>
+    </button>
 
     <!-- AUTHENTICATION MODAL -->
     <div class="modal" id="authModal">
@@ -487,13 +548,12 @@
         </div>
     </div>
 
-    <!-- DETAILED TERMS & CONDITIONS MODAL -->
+    <!-- TERMS & CONDITIONS MODAL -->
     <div class="modal" id="termsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeTermsModal()">&times;</span>
             <div class="terms-modal-title">📜 Terms of Service & Legal Disclaimer</div>
 
-            <!-- Warning Box for Financial Loss & Addiction -->
             <div class="term-warning-box">
                 <h4>⚠️ Responsible Gaming & Financial Risk Disclaimer</h4>
                 <p><strong>This game involves an element of financial risk and may be addictive. Please play responsibly and at your own risk.</strong> Win2Earn and its operators shall not be held liable or responsible for any financial losses, damages, or distress incurred by players while participating in cash contests. Players are advised to play with financial discretion and avoid habit-forming behavior.</p>
@@ -523,6 +583,25 @@
         </div>
     </div>
 
+    <!-- TELEGRAM SUPPORT INSTRUCTION MODAL -->
+    <div class="modal" id="telegramModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTelegramModal()">&times;</span>
+            
+            <div class="telegram-icon-large">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.25-3.55 3.93-1.65 4.74-1.94 5.27-1.95.12 0 .38.03.55.17.14.12.18.28.2.4-.01.07.01.22 0 .24z"/></svg>
+            </div>
+
+            <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Need Help or Support?</h3>
+
+            <div class="telegram-instruction">
+                <p>For any queries, deposit/withdrawal issues, or technical problems, please take a <strong>clear screenshot of your issue</strong> and send it along with a brief description to our official Telegram support team.</p>
+            </div>
+
+            <a href="https://t.me/win2earnteam" target="_blank" class="btn-telegram-go" onclick="closeTelegramModal()">Proceed to Telegram (@win2earnteam)</a>
+        </div>
+    </div>
+
     <script>
         const BACKEND_URL = "https://win2earn.onrender.com";
         let profilePicBase64 = "";
@@ -542,6 +621,14 @@
 
         function closeTermsModal() {
             document.getElementById('termsModal').style.display = 'none';
+        }
+
+        function openTelegramModal() {
+            document.getElementById('telegramModal').style.display = 'flex';
+        }
+
+        function closeTelegramModal() {
+            document.getElementById('telegramModal').style.display = 'none';
         }
 
         function switchTab(mode) {
