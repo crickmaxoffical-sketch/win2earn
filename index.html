@@ -379,7 +379,7 @@
     <!-- Navbar -->
     <div class="navbar">
         <div class="logo">Win<span>2Earn</span></div>
-        <div class="nav-btns">
+        <div class="nav-btns" id="navBtnsContainer">
             <button class="btn-login" onclick="openAuth('login')">Login</button>
             <button class="btn-signup" onclick="openAuth('signup')">Sign Up</button>
         </div>
@@ -405,7 +405,7 @@
     </div>
 
     <div class="container">
-        <div class="hero-headline">
+        <div class="hero-headline" id="heroHeadlineBlock">
             <h1 class="hero-title">INDIA'S FIRST <span>PAPER GLIDE</span> GAME</h1>
             <p class="hero-subtitle">Show your Skill, not your Luck<br>And win <span>100% Real Cash</span></p>
         </div>
@@ -440,7 +440,7 @@
             </div>
             <h2>Paper Glide Arena</h2>
             <p>Fly the paper plane, dodge obstacles, score highest & win instant cash prizes!</p>
-            <button class="btn-main" onclick="openAuth('signup')">🎮 Play Now & Win Real Cash</button>
+            <button class="btn-main" onclick="handlePlayNowClick()">🎮 Play Now & Win Real Cash</button>
         </div>
 
         <!-- PRACTICE ARENA -->
@@ -458,7 +458,7 @@
             </div>
             <h2>Practice Match Arena</h2>
             <p>Practice your flying skills for free before entering real cash battles!</p>
-            <button class="btn-secondary" onclick="alert('Starting Practice Mode...')">🎓 Play Free Practice Match</button>
+            <button class="btn-secondary" onclick="showNotification('Starting Practice Mode...', 'success')">🎓 Play Free Practice Match</button>
         </div>
 
         <!-- CLICKABLE TERMS BOX -->
@@ -602,10 +602,10 @@
         </div>
     </div>
 
-        <script>
+    <script>
         let profilePicBase64 = "";
 
-        // DOM Load Hotey Hi Logged In User State Check Karein
+        // DOM Load: Check user login state
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (currentUser) {
@@ -699,7 +699,17 @@
             }
         }
 
-        // STRICT SIGN UP (Photo mandatory)
+        function handlePlayNowClick() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                showNotification("Please Sign Up or Login first to play real cash matches!", "warning");
+                openAuth('signup');
+            } else {
+                showNotification("Entering Real Cash Arena...", "success");
+            }
+        }
+
+        // STRICT SIGN UP
         function sendOTP() {
             const name = document.getElementById('signupName').value.trim();
             const phone = document.getElementById('signupPhone').value.trim();
@@ -774,20 +784,18 @@
 
         // LOGGED IN UI STATE CONTROL
         function renderLoggedInState(user, isLogin = true) {
-            // Find Top Right Header Container (Handles multiple class names)
-            const headerRight = document.querySelector('.auth-btns') || document.querySelector('.nav-right') || document.querySelector('header div:last-child');
+            const navContainer = document.getElementById('navBtnsContainer');
 
-            if (headerRight) {
-                headerRight.innerHTML = `
+            if (navContainer) {
+                navContainer.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15);">
-                        <img src="${user.profilePic}" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid #ffb703;">
+                        <img src="${user.profilePic}" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid #fbbf24;">
                         <span style="color: #fff; font-weight: 700; font-size: 13px;">${user.name}</span>
-                        <div style="background: #00e676; color: #000; padding: 2px 8px; border-radius: 20px; font-weight: 800; font-size: 12px;">₹${user.balance || 0}</div>
+                        <div style="background: #4ade80; color: #000; padding: 2px 8px; border-radius: 20px; font-weight: 800; font-size: 12px;">₹${user.balance || 0}</div>
                     </div>
                 `;
             }
 
-            // Show Deposit/Withdraw buttons ONLY AFTER LOGIN
             showWalletButtonsUI();
 
             if (isLogin) {
@@ -797,18 +805,18 @@
             }
         }
 
-        // WALLET BUTTONS CONTROL
+        // Dynamic Wallet Buttons
         function showWalletButtonsUI() {
             let btnContainer = document.getElementById('walletActionBtns');
-            const heroHeadline = document.querySelector('.hero-title') || document.querySelector('h1') || document.querySelector('.main-heading');
+            const heroHeadline = document.getElementById('heroHeadlineBlock');
             
             if (!btnContainer && heroHeadline) {
                 btnContainer = document.createElement('div');
                 btnContainer.id = 'walletActionBtns';
-                btnContainer.style.cssText = 'display: flex; justify-content: center; gap: 12px; margin-top: 10px; margin-bottom: 5px;';
+                btnContainer.style.cssText = 'display: flex; justify-content: center; gap: 12px; margin-bottom: 18px; margin-top: 10px;';
                 btnContainer.innerHTML = `
-                    <button onclick="openDepositModal()" style="background: linear-gradient(135deg, #00e676, #00b0ff); color: #000; font-weight: 800; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,230,118,0.3); font-size: 13px;">➕ Deposit Cash</button>
-                    <button onclick="openWithdrawModal()" style="background: linear-gradient(135deg, #ffb703, #ff0055); color: #fff; font-weight: 800; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,183,3,0.3); font-size: 13px;">💸 Withdraw</button>
+                    <button onclick="openDepositModal()" style="background: linear-gradient(135deg, #00e676, #00b0ff); color: #000; font-weight: 800; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,230,118,0.3); font-size: 13.5px;">➕ Deposit Cash</button>
+                    <button onclick="openWithdrawModal()" style="background: linear-gradient(135deg, #ffb703, #ff0055); color: #fff; font-weight: 800; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,183,3,0.3); font-size: 13.5px;">💸 Withdraw</button>
                 `;
                 heroHeadline.parentNode.insertBefore(btnContainer, heroHeadline);
             } else if (btnContainer) {
@@ -839,3 +847,4 @@
     </div>
 </body>
 </html>
+
