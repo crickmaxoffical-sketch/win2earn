@@ -602,10 +602,10 @@
         </div>
     </div>
 
-    <script>
-        const BACKEND_URL = "https://win2earn.onrender.com";
+        <script>
         let profilePicBase64 = "";
 
+        // Modals Toggle Functions
         function openAuth(mode) {
             document.getElementById('authModal').style.display = 'flex';
             switchTab(mode);
@@ -662,105 +662,55 @@
             }
         }
 
-        async function handleLogin() {
+        // DEMO LOGIN (Instant Testing)
+        function handleLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
-            const statusMsg = document.getElementById('statusMsg');
 
             if (!email || !password) {
                 alert("Please enter both Email and Password!");
                 return;
             }
 
-            statusMsg.innerText = "Authenticating...";
-
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert("Login Successful!");
-                    localStorage.setItem('userToken', data.token);
-                    localStorage.setItem('userData', JSON.stringify(data.user));
-                    window.location.reload();
-                } else {
-                    statusMsg.innerText = data.message || "Invalid Email or Password!";
-                }
-            } catch (error) {
-                statusMsg.innerText = "Server connection error.";
-            }
+            alert("Login Successful! (Demo Mode)");
+            closeAuth();
+            openDashboard();
         }
 
-        async function sendOTP() {
+        // DEMO SIGNUP & OTP (Instant Testing)
+        function sendOTP() {
             const name = document.getElementById('signupName').value.trim();
             const phone = document.getElementById('signupPhone').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const password = document.getElementById('signupPassword').value.trim();
-            const statusMsg = document.getElementById('statusMsg');
 
             if (!name || !phone || !email || !password) {
                 alert("Please fill all details!");
                 return;
             }
 
-            statusMsg.innerText = "Sending Gmail OTP...";
-
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, email, password, profilePic: profilePicBase64 })
-                });
-
-                const data = await response.json();
-                statusMsg.innerText = data.message;
-
-                if (response.ok) {
-                    document.getElementById('registerInputs').style.display = 'none';
-                    document.getElementById('otpSection').style.display = 'block';
-                }
-            } catch (error) {
-                statusMsg.innerText = "Connecting to backend...";
-            }
+            // Direct OTP Screen Par Bhejo
+            document.getElementById('registerInputs').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'block';
+            document.getElementById('statusMsg').innerText = "Demo Mode: Any 6-digit OTP will work!";
         }
 
-        async function verifyOTP() {
-            const email = document.getElementById('signupEmail').value.trim();
+        function verifyOTP() {
             const otp = document.getElementById('otpInput').value.trim();
-            const statusMsg = document.getElementById('statusMsg');
 
             if (!otp) {
                 alert("Please enter OTP!");
                 return;
             }
 
-            statusMsg.innerText = "Verifying OTP...";
+            alert("Account Verified Successfully!");
+            closeAuth();
+            openDashboard();
+        }
 
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, otp })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert("Account Created & Verified Successfully! You can now Login.");
-                    switchTab('login');
-                } else {
-                    statusMsg.innerText = data.message || "Invalid OTP!";
-                }
-            } catch (error) {
-                statusMsg.innerText = "Verification failed!";
-            }
+        function openDashboard() {
+            alert("Redirecting to Main User Dashboard...");
         }
     </script>
 </body>
 </html>
-
