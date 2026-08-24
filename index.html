@@ -37,7 +37,7 @@
         .btn-main { background: #fbbf24; color: #000; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 900; font-size: 15px; cursor: pointer; }
 
         /* MODAL STYLES */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 1000; justify-content: center; align-items: center; padding: 16px; backdrop-filter: blur(5px); }
         .modal-content { background: #0f172a; border: 1px solid rgba(251, 191, 36, 0.35); padding: 24px 20px; border-radius: 20px; width: 100%; max-width: 420px; position: relative; text-align: center; }
         .close-btn { position: absolute; top: 12px; right: 16px; font-size: 24px; color: #94a3b8; cursor: pointer; }
         
@@ -121,7 +121,7 @@
     </div>
 
     <script>
-        // Page Load check
+        // Website open hote hi ye function run hoga
         window.addEventListener('DOMContentLoaded', () => {
             checkUserState();
         });
@@ -132,7 +132,7 @@
             const walletActions = document.getElementById('walletActions');
 
             if (user) {
-                // USER LOGGED IN STATE
+                // USER LOGGED IN STATE: Profile & Wallet buttons dikhenge
                 navContainer.innerHTML = `
                     <div class="profile-pill">
                         <img src="${user.profilePic || 'https://via.placeholder.com/30'}" class="profile-avatar">
@@ -141,14 +141,18 @@
                         <button class="btn-logout" onclick="handleLogout()">Logout</button>
                     </div>
                 `;
-                walletActions.style.display = 'flex'; // Show Deposit/Withdraw
+                walletActions.style.display = 'flex';
+                closeAuth(); // Agar logged-in hai to popup band rahega
             } else {
-                // LOGGED OUT STATE
+                // LOGGED OUT STATE: Navbar buttons setup + Direct Auth Modal Open
                 navContainer.innerHTML = `
                     <button class="btn-login" onclick="openAuth('login')">Login</button>
                     <button class="btn-signup" onclick="openAuth('signup')">Sign Up</button>
                 `;
-                walletActions.style.display = 'none'; // Hide Deposit/Withdraw
+                walletActions.style.display = 'none';
+                
+                // MAIN FIX: Website khulte hi Sign Up / Login popup screen pe aa jayega!
+                openAuth('signup');
             }
         }
 
@@ -189,7 +193,6 @@
             localStorage.setItem(email, JSON.stringify(userData));
             localStorage.setItem('currentUser', JSON.stringify(userData));
 
-            closeAuth();
             checkUserState();
         }
 
@@ -210,7 +213,6 @@
             }
 
             localStorage.setItem('currentUser', JSON.stringify(userData));
-            closeAuth();
             checkUserState();
         }
 
