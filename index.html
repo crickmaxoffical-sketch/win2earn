@@ -602,8 +602,43 @@
         </div>
     </div>
 
-        <script>
+            <!-- UI Notification Toast Box -->
+    <div id="toastBox" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 99999; min-width: 280px; padding: 14px 20px; border-radius: 10px; background: #161b22; border: 1px solid #ff4d4d; box-shadow: 0 8px 24px rgba(255, 77, 77, 0.25); color: #ffffff; font-family: sans-serif; font-size: 14px; font-weight: 600; align-items: center; gap: 10px;">
+        <span id="toastIcon">⚠️</span>
+        <span id="toastMessage">Error Message</span>
+    </div>
+
+    <script>
         let profilePicBase64 = "";
+
+        // Custom Modern Toast Notification Function
+        function showNotification(message, type = 'error') {
+            const toast = document.getElementById('toastBox');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMsg.innerText = message;
+            
+            if (type === 'success') {
+                toast.style.borderColor = '#00e676';
+                toast.style.boxShadow = '0 8px 24px rgba(0, 230, 118, 0.25)';
+                toastIcon.innerText = '✅';
+            } else if (type === 'warning') {
+                toast.style.borderColor = '#ffb703';
+                toast.style.boxShadow = '0 8px 24px rgba(255, 183, 3, 0.25)';
+                toastIcon.innerText = '⚠️';
+            } else {
+                toast.style.borderColor = '#ff4d4d';
+                toast.style.boxShadow = '0 8px 24px rgba(255, 77, 77, 0.25)';
+                toastIcon.innerText = '❌';
+            }
+
+            toast.style.display = 'flex';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3500);
+        }
 
         // Modals Toggle Functions
         function openAuth(mode) {
@@ -662,22 +697,7 @@
             }
         }
 
-        // DEMO LOGIN (Instant Testing)
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            if (!email || !password) {
-                alert("Please enter both Email and Password!");
-                return;
-            }
-
-            alert("Login Successful! (Demo Mode)");
-            closeAuth();
-            openDashboard();
-        }
-
-        // DEMO SIGNUP & OTP (Instant Testing)
+        // SIGN UP & OTP SEND
         function sendOTP() {
             const name = document.getElementById('signupName').value.trim();
             const phone = document.getElementById('signupPhone').value.trim();
@@ -685,31 +705,77 @@
             const password = document.getElementById('signupPassword').value.trim();
 
             if (!name || !phone || !email || !password) {
-                alert("Please fill all details!");
+                showNotification("Please fill all required details!", "warning");
                 return;
             }
 
-            // Direct OTP Screen Par Bhejo
+            // Save temporarily before OTP verification
+            window.tempUser = { name, phone, email, password, profilePic: profilePicBase64 };
+
             document.getElementById('registerInputs').style.display = 'none';
             document.getElementById('otpSection').style.display = 'block';
-            document.getElementById('statusMsg').innerText = "Demo Mode: Any 6-digit OTP will work!";
+            document.getElementById('statusMsg').innerText = "Demo OTP: Enter 123456";
+            showNotification("OTP sent successfully!", "success");
         }
 
+        // OTP VERIFICATION & SAVE USER
         function verifyOTP() {
             const otp = document.getElementById('otpInput').value.trim();
 
-            if (!otp) {
-                alert("Please enter OTP!");
+            if (otp !== "123456" && otp.length !== 6) {
+                showNotification("Invalid OTP! Use 123456 for testing.", "error");
                 return;
             }
 
-            alert("Account Verified Successfully!");
-            closeAuth();
-            openDashboard();
+            if (window.tempUser) {
+                localStorage.setItem(window.tempUser.email, JSON.stringify(window.tempUser));
+                localStorage.setItem('currentUser', JSON.stringify(window.tempUser));
+            }
+
+            showNotification("Account Verified Successfully!", "success");
+            setTimeout(() => {
+                closeAuth();
+                openDashboard();
+            }, 1000);
+        }
+
+        // ATTRACTIVE & STRICT LOGIN CHECK
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!email || !password) {
+                showNotification("Please enter both Email and Password!", "warning");
+                return;
+            }
+
+            const savedUser = localStorage.getItem(email);
+
+            if (!savedUser) {
+                showNotification("Account not found! Please Sign Up first.", "error");
+                setTimeout(() => { switchTab('signup'); }, 1500);
+                return;
+            }
+
+            const userData = JSON.parse(savedUser);
+
+            if (userData.password !== password) {
+                showNotification("Incorrect Password! Please try again.", "error");
+                return;
+            }
+
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            showNotification("Login Successful!", "success");
+            
+            setTimeout(() => {
+                closeAuth();
+                openDashboard();
+            }, 1000);
         }
 
         function openDashboard() {
-            alert("Redirecting to Main User Dashboard...");
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            showNotification("Welcome back, " + (currentUser ? currentUser.name : "Player") + "!", "success");
         }
     </script>
 </body>
